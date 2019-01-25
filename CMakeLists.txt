@@ -18,6 +18,14 @@ add_executable(
 	include/Tower.hpp
 	src/Map.cpp
 	include/Map.hpp
+	include/Sprite.hpp
+	src/Sprite.cpp
+	src/AtkTower.cpp
+	include/AtkTower.hpp
+	src/BuffTower.cpp
+	include/BuffTower.hpp
+	src/ProdTower.cpp
+	include/ProdTower.hpp
 )
 
 target_link_libraries(

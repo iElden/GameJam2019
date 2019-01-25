@@ -6,9 +6,11 @@
 #define GRANDMATD_MOB_HPP
 
 
-class Mob {
+namespace gtd {
+	class Mob {
 
-};
+	};
+}
 
 
 #endif //GRANDMATD_MOB_HPP

@@ -6,9 +6,11 @@
 #define GRANDMATD_MAP_HPP
 
 
-class Map {
+namespace gtd {
+	class Map {
 
-};
+	};
+}
 
 
 #endif //GRANDMATD_MAP_HPP
