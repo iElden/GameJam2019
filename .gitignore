@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# CMake build folders
+cmake-build-*
+
+# CLion config files
+.idea
