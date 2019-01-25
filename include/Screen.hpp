@@ -19,7 +19,7 @@ private:
 public:
 	double	fps;
 
-	explicit Screen(const std::string &title = "TH Fan Game");
+	explicit Screen(const std::string &title = "Grand-ma Tower Defense");
 	Screen(const Screen &);
 	~Screen();
 

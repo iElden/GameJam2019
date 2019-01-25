@@ -12,6 +12,12 @@ add_executable(
 	include/Logger.hpp
 	src/Screen.cpp
 	include/Screen.hpp
+	src/Mob.cpp
+	include/Mob.hpp
+	src/Tower.cpp
+	include/Tower.hpp
+	src/Map.cpp
+	include/Map.hpp
 )
 
 target_link_libraries(
