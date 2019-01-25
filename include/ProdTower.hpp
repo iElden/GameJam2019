@@ -7,10 +7,16 @@
 
 
 #include "Tower.hpp"
+#include "Resources.hpp"
 
-class ProdTower : public gtd::Tower {
-
-};
+namespace gtd {
+	class ProdTower : public gtd::Tower {
+	protected:
+		gtd::Food::Type	_prodType;
+		double		_prodSpeed;
+		int		_value;
+	};
+}
 
 
 #endif //GRANDMATD_PRODTOWER_HPP

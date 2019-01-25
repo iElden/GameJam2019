@@ -26,10 +26,12 @@ add_executable(
 	include/BuffTower.hpp
 	src/ProdTower.cpp
 	include/ProdTower.hpp
+	include/Resources.hpp
 )
 
 target_link_libraries(
 	grandmaTD
+	sfml-audio
 	sfml-window
 	sfml-system
 	sfml-graphics

@@ -7,26 +7,43 @@
 
 
 #include <string>
-#include <Screen.hpp>
-#include <Sprite.hpp>
+#include <SFML/Audio.hpp>
+#include "Screen.hpp"
+#include "Sprite.hpp"
+#include "Mob.hpp"
 
 namespace gtd {
 	class Tower {
+	public:
+		enum Type {
+			Attack,
+			Production,
+			Buff,
+		};
+
+		Tower(const sf::SoundBuffer &sBuffer, const gtd::Sprite &sprite, const sf::Vector2u &pos, const double &displayedRange, const std::string &name = "Tower");
+		void	display(gtd::Screen &screen);
+		unsigned	getLevel();
+		unsigned	getCost();
+		Type		getType();
+		std::string	getName();
+		virtual	void	update(const float &timeSpent) = 0;
+		virtual	void	upgrade(int level) = 0;
+
 	protected:
+		int		_animation;
+		unsigned	_level;
+		sf::Vector2u	_pos;
+
+	private:
+		sf::SoundBuffer	_sBuff;
+		sf::Sound	_sound;
+		Type		_type;
 		double		_displayedRange;
 		gtd::Sprite	_sprite;
-		sf::Vector2u	_pos;
 		std::string	_name;
-		int		_animation;
 		double		_angle;
 		unsigned	_cost;
-		unsigned	_level;
-
-	public:
-		Tower(const gtd::Sprite &sprite, const sf::Vector2u &pos, const double &displayedRange, const std::string &name = "Tower");
-		void	display(gtd::Screen &screen);
-		virtual	void	update(const float &timeSpent) = 0;
-		virtual	void	upgrade() = 0;
 	};
 }
 

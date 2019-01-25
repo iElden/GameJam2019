@@ -8,9 +8,17 @@
 
 #include "Tower.hpp"
 
-class BuffTower : public gtd::Tower {
+namespace gtd {
+	class BuffTower : public gtd::Tower {
+	private:
+		int _asMultiplier;
+		int _dmgMultiplier;
+		int _rangeMultiplier;
 
-};
+	public:
+		virtual void buff(const std::vector<gtd::Tower *> &allTowers) = 0;
+	};
+}
 
 
 #endif //GRANDMATD_BUFFTOWER_HPP
