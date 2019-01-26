@@ -28,7 +28,12 @@ add_executable(
 	src/ProdTower.cpp
 	include/ProdTower.hpp
 	include/Resources.hpp
-)
+	include/CakeGrandGa.hpp
+	src/CakeGrandGa.cpp
+	include/TvGrandMa.hpp
+	src/TvGrandMa.cpp
+	include/CookingGrandMa.cpp
+	include/CookingGrandMa.hpp)
 
 target_link_libraries(
 	grandmaTD

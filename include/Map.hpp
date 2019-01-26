@@ -13,16 +13,16 @@ namespace gtd {
 	public:
 		enum Blocks {
 			NOTHING,
-			BLOCKED,
 			UP,
 			RIGHT,
 			DOWN,
-			LEFT
+			LEFT,
+			BLOCKED
 		};
 		Map(const std::string &spritePath, const sf::Vector2u &spriteSize, const std::string &mapHitbox);
-		std::vector<Blocks>	operator[](const unsigned &index);
-		sf::Vector2u		getSize();
-		void			display(Screen &screen);
+		const std::vector<Blocks>	&operator[](const unsigned &index);
+		sf::Vector2u			getSize();
+		void				display(Screen &screen);
 
 	private:
 		sf::Vector2u				_start;
