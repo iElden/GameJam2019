@@ -25,3 +25,8 @@ bool	gtd::Mob::isFull()
 {
 	return (this->_health == 0);
 }
+
+sf::Vector2f gtd::Mob::getPos()
+{
+	return  (_pos);
+}
