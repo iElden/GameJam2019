@@ -2,7 +2,8 @@
 // Created by Andgel on 25/01/2019.
 //
 
-#include <Logger.hpp>
+#include <cmath>
+#include "Logger.hpp"
 #include "Tower.hpp"
 
 gtd::Tower::Tower(const unsigned &cost,
@@ -49,4 +50,9 @@ gtd::Tower::Type gtd::Tower::getType()
 std::string gtd::Tower::getName()
 {
 	return this->_name;
+}
+
+double gtd::Tower::getDistanceTo(const sf::Vector2u &pt)
+{
+	return sqrt(pow(pt.x - this->_pos.x, 2) + pow(pt.y - this->_pos.y, 2));
 }

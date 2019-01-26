@@ -33,6 +33,7 @@ namespace gtd {
 		unsigned	getCost();
 		Type		getType();
 		std::string	getName();
+		double		getDistanceTo(const sf::Vector2u &pt);
 		virtual void	resetBuffs() = 0;
 		virtual	void	upgrade(int level) = 0;
 		virtual	void	update() = 0;
