@@ -16,6 +16,7 @@ namespace gtd {
 		void	takeDamage(const double &);
 		bool	isFull();
 		double	getBarPercentage();
+		sf::Vector2f getPos();
 
 	protected:
 		sf::Vector2f	_pos;
