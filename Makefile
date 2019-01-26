@@ -13,6 +13,7 @@ SRC = AtkTower.cpp  	\
     CookingGrandMa.cpp	\
     CakeGrandGa.cpp		\
     TvGrandMa.cpp		\
+    Game.cpp    		\
 
 OBJ =	$(SRC:%.cpp=src/%.o)
 

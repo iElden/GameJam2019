@@ -17,6 +17,7 @@ namespace  gtd {
 		bool pay(unsigned value);
 		void wonMoney(unsigned value);
 		bool lostLife();
+		void nextWave();
 		gtd::Food	stock;
 
 	private:

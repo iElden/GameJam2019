@@ -74,9 +74,53 @@ void	handleClick(sf::Event &event)
 	}
 }
 
-void	spawnMobs(std::vector<gtd::Mob *> &mobs, const sf::Vector2u &start)
+void	spawnMobs(std::vector<gtd::Mob *> &mobs, const sf::Vector2u &start, double life, double speed, gtd::Sprite *sprite)
 {
-	mobs.emplace_back(new gtd::Mob(rand() % 30000, rand() % 300 / 200., sf::Vector2f(start.x, start.y), sprites["boi"]));
+	mobs.emplace_back(new gtd::Mob(life, speed, sf::Vector2f(start.x, start.y), sprite));
+}
+
+bool manageWave(int wave, std::vector<gtd::Mob *> &mobs, gtd::Map &map, bool reset = false)
+{
+	double apparition;
+	double base_life = (wave * 20 + 50);
+	double speed_boys;
+	static int nb_Mobs = (wave / 2) + 6;
+	static int count = 0;
+
+	if (reset) {
+		return (nb_Mobs = (wave / 2) + 6), count = 0, true;
+	}
+	if (count++ < 20)
+		return (true);
+	else
+		count = 0;
+	if (nb_Mobs <= 0)
+		return false;
+	apparition = rand() % 100000 / 100000.0;
+	if (wave > 14 && apparition < - 1.0 * ( 1.0 / (0.001 * wave + 1.0)) + 1.0)
+	{
+		spawnMobs(mobs, map.getStart(), base_life * 5, 0.2, sprites["big_boi"]);
+		nb_Mobs--;
+	}
+	else if (wave > 9 && apparition < - 1.0 * ( 1.0 / (0.005 * wave + 1.0)) + 1.0)
+	{
+		speed_boys = 0.6 + wave / 100.0;
+		if (speed_boys > 1.5)
+		{
+			spawnMobs(mobs, map.getStart(), 250 + (speed_boys - 1.5) * 1000.0, 1.5, sprites["boi"]);
+		}
+		else
+		{
+			spawnMobs(mobs, map.getStart(), 250, speed_boys, sprites["boi"]);
+		}
+		nb_Mobs--;
+	}
+	else
+	{
+		spawnMobs(mobs, map.getStart(), base_life, 0.6, sprites["boi"]);
+		nb_Mobs--;
+	}
+	return (nb_Mobs > 0);
 }
 
 void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &towers)
@@ -144,28 +188,10 @@ void	game_fct()
 	font.loadFromFile("assets/arial.ttf");
 	screen.setFont(font);
 	srand(time(NULL));
-	/*for (unsigned i = 0; i < 17; i++) {
-		for (unsigned j = 0; j < 15; j++) {
-			if (_map[j].size() <= i)
-				throw std::out_of_range(std::to_string(i) + " is out of ranges");
-			if (_map[j][i] == gtd::Map::NOTHING) {
-				switch (rand() % 3) {
-				case 0:
-					towers->emplace_back(new gtd::CookingGrandMa(sBuffer, sf::Vector2u(i, j)));
-					break;
-				case 1:
-					towers->emplace_back(new gtd::CakeGrandMa(sBuffer, sf::Vector2u(i, j)));
-					break;
-				case 2:
-					towers->emplace_back(new gtd::TvGrandMa(sBuffer, sf::Vector2u(i, j)));
-				}
-			}
-		}
-	}*/
 	while (screen.isOpen()) {
-		if (clock.getElapsedTime().asSeconds() >= 2) {
-			clock.restart();
-			spawnMobs(mobs, map->getStart());
+		if (!manageWave(game->getWave(), mobs, _map) && mobs.empty()) {
+			game->nextWave();
+			manageWave(game->getWave(), mobs, _map, true);
 		}
 		screen.clear();
 		_map.display(screen);
