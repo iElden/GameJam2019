@@ -16,7 +16,7 @@ namespace gtd {
 			NbOfTypes
 		};
 
-		std::vector<unsigned>	stock;
+		std::vector<double>	stock;
 	};
 }
 

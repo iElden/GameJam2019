@@ -12,10 +12,10 @@
 namespace gtd {
 	class ProdTower : public gtd::Tower {
 	protected:
-		int		_buffer;
+		double		_buffer;
 		gtd::Food::Type	_prodType;
 		double		_prodSpeed;
-		int		_value;
+		double		_value;
 
 	public:
 		ProdTower(const gtd::Food::Type &type,

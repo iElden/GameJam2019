@@ -33,3 +33,20 @@ void	gtd::ProdTower::update()
 {
 	this->_buffer += 1;
 }
+
+void	gtd::ProdTower::resetBuffs()
+{
+	this->_prodSpeed	/= this->_asBuff;
+	this->_value		/= this->_dmgBuff;
+	this->_asBuff = 1;
+	this->_dmgBuff = 1;
+}
+
+void	gtd::ProdTower::buff(const double &as, const double &dmg, const double &range)
+{
+	(void)range;
+	this->_prodSpeed	*= as;
+	this->_asBuff		*= as;
+	this->_value		*= dmg;
+	this->_dmgBuff		*= dmg;
+}
