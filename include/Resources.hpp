@@ -6,6 +6,8 @@
 #define GRANDMATD_RESOURCES_HPP
 
 
+#include <vector>
+
 namespace gtd {
 	struct Food {
 		enum Type {

@@ -59,8 +59,8 @@ namespace gtd {
 		Type		_type;
 		gtd::Sprite	*_sprite;
 		std::string	_name;
-		unsigned	_cost;
 		bool		_isSelected = false;
+		unsigned	_cost;
 	};
 }
 

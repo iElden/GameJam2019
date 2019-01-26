@@ -2,7 +2,7 @@
 // Created by Elden on 1/26/19.
 //
 
-#include "../include/Game.hpp"
+#include "Game.hpp"
 
 unsigned gtd::Game::getLive() const
 {

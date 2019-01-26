@@ -11,6 +11,7 @@ namespace gtd {
 	class CookingGrandMa : public ProdTower {
 	public:
 		CookingGrandMa(const sf::SoundBuffer &sBuffer, const sf::Vector2u &pos);
+		static const int cost = 20;
 	};
 }
 

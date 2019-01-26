@@ -22,7 +22,7 @@ gtd::ProdTower::ProdTower(const gtd::Food::Type &type,
 
 void	gtd::ProdTower::prod(gtd::Food &stock)
 {
-	if (this->_buffer <= this->_prodSpeed)
+	if (this->_buffer / 60. >= this->_prodSpeed)
 		this->_buffer = 0;
 	else
 		return;
