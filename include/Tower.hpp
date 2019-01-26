@@ -33,6 +33,7 @@ namespace gtd {
 		unsigned	getCost();
 		Type		getType();
 		std::string	getName();
+		sf::Vector2f	getPosition();
 		double		getDistanceTo(const sf::Vector2f &pt);
 		virtual void	resetBuffs() = 0;
 		virtual	void	upgrade(int level) = 0;
@@ -44,9 +45,9 @@ namespace gtd {
 		int		_animation;
 		unsigned	_level;
 		sf::Vector2u	_pos;
-		double		_asBuff;
-		double		_dmgBuff;
-		double		_rangeBuff;
+		double		_asBuff = 1;
+		double		_dmgBuff = 1;
+		double		_rangeBuff = 1;
 
 	private:
 		sf::SoundBuffer	_sBuff;

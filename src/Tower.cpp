@@ -56,3 +56,8 @@ double gtd::Tower::getDistanceTo(const sf::Vector2f &pt)
 {
 	return sqrt(pow(pt.x - this->_pos.x, 2) + pow(pt.y - this->_pos.y, 2));
 }
+
+sf::Vector2f gtd::Tower::getPosition()
+{
+	return (sf::Vector2f(this->_pos.x, this->_pos.y));
+}

@@ -38,8 +38,8 @@ void	gtd::ProdTower::resetBuffs()
 {
 	this->_prodSpeed	/= this->_asBuff;
 	this->_value		/= this->_dmgBuff;
-	this->_asBuff = 1;
-	this->_dmgBuff = 1;
+	this->_asBuff	= 1;
+	this->_dmgBuff	= 1;
 }
 
 void	gtd::ProdTower::buff(const double &as, const double &dmg, const double &range)

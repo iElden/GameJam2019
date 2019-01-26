@@ -58,21 +58,21 @@ void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs, const float &seconds)
 
 void	gtd::AtkTower::resetBuffs()
 {
-	_displayedRange /= _rangeBuff;
-	_attackSpeed /= _asBuff;
-	_damages /= _dmgBuff;
-	_asBuff = 1;
-	_dmgBuff = 1;
-	_rangeBuff = 1;
+	this->_displayedRange	/= this->_rangeBuff;
+	this->_attackSpeed	/= this->_asBuff;
+	this->_damages		/= this->_dmgBuff;
+	this->_asBuff		= 1;
+	this->_dmgBuff		= 1;
+	this->_rangeBuff	= 1;
 
 }
 
 void	gtd::AtkTower::buff(const double &as, const double &dmg, const double &range)
 {
-	_displayedRange *= range;
-	_rangeBuff	*= range;
-	_attackSpeed	*= as;
-	_asBuff		*= as;
-	_damages	*= dmg;
-	_dmgBuff	*= dmg;
+	this->_displayedRange	*= range;
+	this->_rangeBuff	*= range;
+	this->_attackSpeed	*= as;
+	this->_asBuff		*= as;
+	this->_damages		*= dmg;
+	this->_dmgBuff		*= dmg;
 }
