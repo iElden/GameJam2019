@@ -11,7 +11,7 @@ namespace gtd {
 	class TvGrandMa : public BuffTower {
 	public:
 		TvGrandMa(const sf::SoundBuffer &sBuffer, const sf::Vector2u &pos);
-		static const int cost = 25;
+		static const int cost = 600;
 	};
 }
 

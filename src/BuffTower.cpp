@@ -23,7 +23,7 @@ gtd::BuffTower::BuffTower(const double &asM,
 void gtd::BuffTower::buffTowers(std::vector<gtd::Tower *> &allTowers)
 {
         for (gtd::Tower *tower : allTowers) {
-                if (this->getDistanceTo(tower->getPosition()) <= this->_displayedRange)
+                if (this->getDistanceTo(tower->getPosition(), sf::Vector2u(32, 32)) <= this->_displayedRange)
                         tower->buff(this->_asMultiplier, this->_dmgMultiplier, this->_rangeMultiplier);
         }
 }

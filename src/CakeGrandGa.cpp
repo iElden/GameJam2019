@@ -6,7 +6,7 @@
 #include "CakeGrandGa.hpp"
 
 gtd::CakeGrandMa::CakeGrandMa(const sf::SoundBuffer &sBuffer, const sf::Vector2u &pos) :
-	AtkTower(1, 10, this->cost, sBuffer, sprites["grandma1"], pos, 3.0, false, "Cake Grand-ma")
+	AtkTower(3, 30, this->cost, sBuffer, sprites["grandma1"], pos, 3.0, false, "Cake Grand-ma")
 {
 }
 

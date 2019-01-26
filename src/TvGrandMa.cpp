@@ -6,6 +6,6 @@
 #include "TvGrandMa.hpp"
 
 gtd::TvGrandMa::TvGrandMa(const sf::SoundBuffer &sBuffer, const sf::Vector2u &pos) :
-	BuffTower(1.5, 1.75, 1.25, this->cost, sBuffer, sprites["tv"], pos, 3.5, "Tv Grand-ma")
+	BuffTower(1.05, 1.075, 1.05, this->cost, sBuffer, sprites["tv"], pos, 2, "Tv Grand-ma")
 {
 }

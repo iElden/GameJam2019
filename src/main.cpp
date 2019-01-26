@@ -59,7 +59,7 @@ void	handleClick(sf::Event &event)
 					selected = -1;
 				}
 			} else if (event.mouseButton.y >= 164 && event.mouseButton.y < 214) {
-				if (event.mouseButton.x < 600 && game->pay(gtd::CookingGrandMa::cost)) {
+				if (event.mouseButton.x < 600 && game->pay(gtd::CakeGrandMa::cost)) {
 					towers->emplace_back(new gtd::CakeGrandMa(sBuffer, selectedBox));
 					selected = -1;
 				} else if (event.mouseButton.x >= 600 && game->pay(gtd::TvGrandMa::cost)) {
@@ -184,7 +184,7 @@ void	game_fct()
 	towers = &_towers;
 	game = &_game;
 	for (int i = 0; i < gtd::Food::NbOfTypes; i++)
-		game->stock.stock.emplace_back(500);
+		game->stock.stock.emplace_back(100);
 	font.loadFromFile("assets/arial.ttf");
 	screen.setFont(font);
 	srand(time(NULL));
@@ -192,9 +192,12 @@ void	game_fct()
 		if (!manageWave(game->getWave(), mobs, _map) && mobs.empty()) {
 			game->nextWave();
 			manageWave(game->getWave(), mobs, _map, true);
+			game->wonMoney(150 + game->getWave() * 20);
 		}
 		screen.clear();
 		_map.display(screen);
+		for (gtd::Tower *tower : _towers)
+			tower->resetBuffs();
 		for (gtd::Tower *tower : _towers) {
 			tower->update();
 			tower->display(screen);
@@ -229,8 +232,6 @@ void	game_fct()
 		displayHUD(screen, _map, _towers);
 		screen.handleEvents(handleClick);
 		screen.display();
-		for (gtd::Tower *tower : _towers)
-			tower->resetBuffs();
 	}
 }
 
