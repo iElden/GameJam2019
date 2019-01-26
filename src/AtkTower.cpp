@@ -11,9 +11,9 @@ gtd::AtkTower::AtkTower(const double &attackSpeed, const double &damages, const 
 	_damages = damages;
 }
 
-void gtd::AtkTower::update(const float &timeSpent)
+void gtd::AtkTower::update()
 {
-	_buffer += static_cast<int>(timeSpent);
+	_buffer += 1;
 }
 
 void gtd::AtkTower::fire(const std::vector<gtd::Mob *> &allMobs, const float &seconds)
@@ -35,12 +35,23 @@ void gtd::AtkTower::fire(const std::vector<gtd::Mob *> &allMobs, const float &se
 	}
 }
 
-void	resetBuffs()
+void	gtd::AtkTower::resetBuffs()
 {
+	_displayedRange /= _rangeBuff;
+	_attackSpeed /= _asBuff;
+	_damages /= _dmgBuff;
+	_asBuff = 1;
+	_dmgBuff = 1;
+	_rangeBuff = 1;
 
 }
 
-void	buff(const double &as, const double &dmg, const double &range)
+void	gtd::AtkTower::buff(const double &as, const double &dmg, const double &range)
 {
-
+	_displayedRange *= range;
+	_rangeBuff	*= range;
+	_attackSpeed	*= as;
+	_asBuff		*= as;
+	_damages	*= dmg;
+	_dmgBuff	*= dmg;
 }
