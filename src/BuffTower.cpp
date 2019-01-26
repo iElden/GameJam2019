@@ -37,3 +37,15 @@ void gtd::BuffTower::buff(const double &as, const double &dmg, const double &ran
 {
 
 }
+
+void	gtd::BuffTower::upgrade(int level)
+{
+        if (level > 0) {
+        } else {
+        }
+}
+
+void gtd::BuffTower::update()
+{
+
+}

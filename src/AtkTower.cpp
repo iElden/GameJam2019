@@ -76,3 +76,13 @@ void	gtd::AtkTower::buff(const double &as, const double &dmg, const double &rang
 	this->_damages		*= dmg;
 	this->_dmgBuff		*= dmg;
 }
+
+void	gtd::AtkTower::upgrade(int level)
+{
+	if (level > 0) {
+		this->_damages *= (1 + 0.15 * level);
+		this->_attackSpeed *= 1;
+	} else {
+		this->_damages /= 0.15 * level;
+	}
+}

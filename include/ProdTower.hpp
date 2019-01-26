@@ -29,6 +29,7 @@ namespace gtd {
 			  const std::string &name = "Tower");
 		void		resetBuffs() override;
 		void		buff(const double &as, const double &dmg, const double &range) override;
+		void		upgrade(int level) override;
 		virtual void	update() override;
 		virtual	void	prod(gtd::Food &stock);
 	};

@@ -28,6 +28,7 @@ namespace gtd {
 			 const std::string &name = "Attack Tower");
 		void	resetBuffs() override;
 		void	buff(const double &as, const double &dmg, const double &range) override;
+		void	upgrade(int level) override;
 		virtual void fire(std::vector<gtd::Mob *> &allMobs, const float &seconds);
 		virtual void update() override;
 		virtual	void applyEffects(gtd::Mob *mob) = 0;

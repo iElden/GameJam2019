@@ -58,6 +58,7 @@ void    gtd::Screen::fillColor(const sf::Color &color)
 {
 	this->_rect.setFillColor(color);
 	this->_text.setFillColor(color);
+	this->_circle.setFillColor(color);
 }
 
 void	gtd::Screen::setFont(const sf::Font &font)
@@ -81,4 +82,11 @@ void	gtd::Screen::displayElement(sf::Sprite &sprite, sf::Vector2f pos)
 {
 	sprite.setPosition(pos);
 	this->draw(sprite);
+}
+
+void	gtd::Screen::displayElement(float radius, sf::Vector2f pos)
+{
+	this->_circle.setRadius(radius);
+	this->_circle.setPosition(pos);
+	this->draw(this->_circle);
 }

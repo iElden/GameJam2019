@@ -27,6 +27,8 @@ namespace gtd {
 			  const std::string &name);
 		virtual void	buffTowers(std::vector<gtd::Tower *> &allTowers);
 		void		resetBuffs() override;
+		void		upgrade(int level) override;
+		void		update() override;
 		void		buff(const double &as, const double &dmg, const double &range) override;
 	};
 }

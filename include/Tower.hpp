@@ -33,6 +33,8 @@ namespace gtd {
 		unsigned	getCost();
 		Type		getType();
 		std::string	getName();
+		bool		isSelected();
+		void		select();
 		sf::Vector2f	getPosition();
 		double		getDistanceTo(const sf::Vector2f &pt);
 		virtual void	resetBuffs() = 0;
@@ -45,6 +47,7 @@ namespace gtd {
 		int		_animation;
 		unsigned	_level;
 		sf::Vector2u	_pos;
+		double		_angle;
 		double		_asBuff = 1;
 		double		_dmgBuff = 1;
 		double		_rangeBuff = 1;
@@ -55,8 +58,8 @@ namespace gtd {
 		Type		_type;
 		gtd::Sprite	_sprite;
 		std::string	_name;
-		double		_angle;
 		unsigned	_cost;
+		bool		_isSelected = false;
 	};
 }
 

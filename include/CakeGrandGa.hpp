@@ -11,7 +11,6 @@ namespace gtd {
 	public:
 		CakeGrandMa(const sf::SoundBuffer &sBuffer, const sf::Vector2u &pos);
 		void applyEffects(gtd::Mob *mob) override;
-
 	};
 }
 #endif //GRANDMATD_CAKE_GRAND_MA_HPP

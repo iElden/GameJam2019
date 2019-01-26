@@ -10,14 +10,15 @@
 #include "Screen.hpp"
 
 namespace gtd {
-class Sprite : public sf::Sprite {
-	private:
+class Sprite {
+	public:
+		sf::Sprite	_sprite;
 		sf::Texture	_texture;
 		sf::Vector2u	_size;
 		bool		_isLoaded;
 
-	public:
 		Sprite(const std::string &path, const sf::Vector2u &size);
+		~Sprite();
 		sf::Vector2u	getSize() const;
 		void	display(gtd::Screen &screen, const sf::Vector2f &pos);
 	};

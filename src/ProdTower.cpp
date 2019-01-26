@@ -50,3 +50,9 @@ void	gtd::ProdTower::buff(const double &as, const double &dmg, const double &ran
 	this->_value		*= dmg;
 	this->_dmgBuff		*= dmg;
 }
+
+void	gtd::ProdTower::upgrade(int level)
+{
+	this->_value += 0.5 * level;
+	this->_prodSpeed *= (1 + level * 20.f / 100);
+}

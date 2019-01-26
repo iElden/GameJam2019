@@ -16,6 +16,7 @@ namespace gtd {
 		sf::Clock _clock;
 		sf::Sprite _sprite;
 		std::string _title;
+		sf::CircleShape _circle;
 
 	public:
 		double fps;
@@ -32,6 +33,7 @@ namespace gtd {
 		void displayElement(sf::IntRect rect);
 		void displayElement(const std::string &str, sf::Vector2f);
 		void displayElement(sf::Sprite &sprite, sf::Vector2f);
+		void displayElement(float radius, sf::Vector2f);
 	};
 }
 
