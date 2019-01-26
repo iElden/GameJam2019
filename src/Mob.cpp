@@ -22,6 +22,8 @@ void gtd::Mob::display(gtd::Screen &screen)
 	this->_sprite->_sprite.setRotation((this->_dir - gtd::Map::UP) * (90) - 90);
 	this->_sprite->display(screen, sf::Vector2f(this->_pos.x * 32 + this->_sprite->_size.x / 2, this->_pos.y * 32 + this->_sprite->_size.y / 2));
 	this->_sprite->_sprite.setOrigin(0, 0);
+	screen.fillColor(sf::Color(0, 255, 0, 255));
+	screen.displayElement(sf::IntRect(this->_pos.x * 32, this->_pos.y * 32, static_cast<int>(this->getBarPercentage()) / 2 - 16, static_cast<int>(this->getBarPercentage()) / 10 - 5));
 }
 
 bool	gtd::Mob::move(gtd::Map &map)
@@ -80,4 +82,11 @@ bool	gtd::Mob::isFull()
 sf::Vector2f gtd::Mob::getPos()
 {
 	return  (_pos);
+}
+
+double gtd::Mob::getBarPercentage()
+{
+	if (this->_maxHealth <= 0)
+		throw std::invalid_argument("Max health can be equal or less than 0.");
+	return (this->_health * 100 / this->_maxHealth);
 }
