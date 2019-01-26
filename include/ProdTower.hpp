@@ -12,7 +12,7 @@
 namespace gtd {
 	class ProdTower : public gtd::Tower {
 	protected:
-		double		_buffer;
+		int		_buffer;
 		gtd::Food::Type	_prodType;
 		double		_prodSpeed;
 		int		_value;
@@ -29,8 +29,8 @@ namespace gtd {
 			  const std::string &name = "Tower");
 		void		resetBuffs() override;
 		void		buff(const double &as, const double &dmg, const double &range) override;
-		virtual void	update(const float &timeSpent) override;
-		virtual	void	prod(const float &seconds);
+		virtual void	update() override;
+		virtual	void	prod(gtd::Food &stock);
 	};
 }
 

@@ -20,15 +20,16 @@ gtd::ProdTower::ProdTower(const gtd::Food::Type &type,
 {
 }
 
-void	gtd::ProdTower::prod(const float &seconds)
+void	gtd::ProdTower::prod(gtd::Food &stock)
 {
 	if (this->_buffer <= this->_prodSpeed)
 		this->_buffer = 0;
 	else
 		return;
+	stock.stock[this->_prodType] += this->_value;
 }
 
-void	gtd::ProdTower::update(const float &timeSpent)
+void	gtd::ProdTower::update()
 {
-	this->_buffer += timeSpent;
+	this->_buffer += 1;
 }

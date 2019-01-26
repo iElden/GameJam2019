@@ -12,7 +12,7 @@ gtd::Mob::Mob(const double &maxHealth, const double &ms, const sf::Vector2f &pos
 {
 }
 
-void	gtd::Mob::move(const float &time)
+void	gtd::Mob::move()
 {
 }
 

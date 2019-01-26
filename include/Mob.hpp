@@ -12,7 +12,7 @@ namespace gtd {
 	class Mob {
 	public:
 		Mob(const double &maxHealth, const double &ms, const sf::Vector2f &pos);
-		void	move(const float &time);
+		void	move();
 		void	takeDamage(const double &);
 		bool	isFull();
 		double	getBarPercentage();

@@ -12,9 +12,11 @@ namespace gtd {
 			Any,
 			GlutenFree,
 			Vegan,
-			Carnivore
+			Carnivore,
+			NbOfTypes
 		};
 
+		std::vector<unsigned>	stock;
 	};
 }
 

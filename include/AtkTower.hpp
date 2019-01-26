@@ -16,7 +16,7 @@ namespace gtd {
 
 	public:
 		AtkTower(const double &attackSpeed, const double &damages);
-		virtual void	fire(const std::vector<gtd::Mob *> &allMobs, const float &seconds);
+		virtual void	fire(const std::vector<gtd::Mob *> &allMobs);
 		void		resetBuffs() override;
 		void		buff(const double &as, const double &dmg, const double &range) override;
 	};

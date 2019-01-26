@@ -35,7 +35,7 @@ namespace gtd {
 		std::string	getName();
 		virtual void	resetBuffs() = 0;
 		virtual	void	upgrade(int level) = 0;
-		virtual	void	update(const float &timeSpent) = 0;
+		virtual	void	update() = 0;
 		virtual	void	buff(const double &as, const double &dmg, const double &range) = 0;
 
 	protected:
