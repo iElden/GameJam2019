@@ -5,7 +5,13 @@
 #include <Logger.hpp>
 #include "Tower.hpp"
 
-gtd::Tower::Tower(const unsigned &cost, const Type &type, const sf::SoundBuffer &sBuffer, const gtd::Sprite &sprite, const sf::Vector2u &pos, const double &displayedRange, const std::string &name) :
+gtd::Tower::Tower(const unsigned &cost,
+		  const Type &type,
+		  const sf::SoundBuffer &sBuffer,
+		  const gtd::Sprite &sprite,
+		  const sf::Vector2u &pos,
+		  const double &displayedRange,
+		  const std::string &name) :
 	_pos(pos),
 	_sBuff(sBuffer),
 	_type(type),

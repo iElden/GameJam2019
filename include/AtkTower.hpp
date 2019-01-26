@@ -12,10 +12,11 @@ namespace gtd {
 	class AtkTower : public gtd::Tower {
 	protected:
 		double	_attackSpeed;
-		double	_damage;
+		double	_damages;
 
 	public:
-		virtual void fire(const std::vector<gtd::Mob *> &allMobs) = 0;
+		AtkTower(const double &attackSpeed, const double &damages);
+		virtual void fire(const std::vector<gtd::Mob *> &allMobs, const float &seconds);
 	};
 }
 

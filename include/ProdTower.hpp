@@ -15,6 +15,10 @@ namespace gtd {
 		gtd::Food::Type	_prodType;
 		double		_prodSpeed;
 		int		_value;
+
+	public:
+		ProdTower(const gtd::Food::Type &type, const double &speed, const int &value);
+		virtual	void	prod(const float &seconds);
 	};
 }
 

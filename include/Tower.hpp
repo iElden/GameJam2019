@@ -21,8 +21,14 @@ namespace gtd {
 			Buff,
 		};
 
-		Tower(const unsigned &cost, const Type &type, const sf::SoundBuffer &sBuffer, const gtd::Sprite &sprite, const sf::Vector2u &pos, const double &displayedRange, const std::string &name = "Tower");
-		void	display(gtd::Screen &screen);
+		Tower(const unsigned &cost,
+		      const Type &type,
+		      const sf::SoundBuffer &sBuffer,
+		      const gtd::Sprite &sprite,
+		      const sf::Vector2u &pos,
+		      const double &displayedRange,
+		      const std::string &name = "Tower");
+		void		display(gtd::Screen &screen);
 		unsigned	getLevel();
 		unsigned	getCost();
 		Type		getType();

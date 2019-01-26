@@ -11,12 +11,13 @@
 namespace gtd {
 	class BuffTower : public gtd::Tower {
 	private:
-		int _asMultiplier;
-		int _dmgMultiplier;
-		int _rangeMultiplier;
+		double	_asMultiplier;
+		double	_dmgMultiplier;
+		double	_rangeMultiplier;
 
 	public:
-		virtual void buff(const std::vector<gtd::Tower *> &allTowers) = 0;
+		BuffTower(const double &asM, const double &dmgM, const double &rangeM);
+		virtual void buff(const std::vector<gtd::Tower *> &allTowers, const float &seconds);
 	};
 }
 
