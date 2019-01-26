@@ -49,7 +49,7 @@ void	gtd::Screen::handleEvents()
 
 void	gtd::Screen::displayElement(sf::IntRect rect)
 {
-	this->_rect.setPosition(sf::Vector2f(rect.left, rect.width));
+	this->_rect.setPosition(sf::Vector2f(rect.left, rect.top));
 	this->_rect.setSize(sf::Vector2f(rect.width, rect.height));
 	this->draw(this->_rect);
 }
