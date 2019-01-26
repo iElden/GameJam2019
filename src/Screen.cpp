@@ -38,13 +38,16 @@ void	gtd::Screen::setTitle(const std::string &title)
 	this->setTitle(title);
 }
 
-void	gtd::Screen::handleEvents()
+void	gtd::Screen::handleEvents(void (*handler)(sf::Event &))
 {
 	sf::Event	event;
 
 	while (this->pollEvent(event))
 		if (event.type == sf::Event::Closed)
 			this->close();
+		else if (handler)
+			handler(event);
+
 }
 
 void	gtd::Screen::displayElement(sf::IntRect rect)

@@ -32,7 +32,7 @@ void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs)
 	gtd::Mob	*best;
 	double		bestDist;
 
-	if (this->_buffer > this->_attackSpeed && !allMobs.empty()) {
+	if (this->_buffer > 60. / this->_attackSpeed && !allMobs.empty()) {
 		if (!this->_isAOE) {
 			best = allMobs[0];
 			bestDist = this->getDistanceTo(best->getPos());
