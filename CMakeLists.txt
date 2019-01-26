@@ -33,7 +33,9 @@ add_executable(
 	include/TvGrandMa.hpp
 	src/TvGrandMa.cpp
 	src/CookingGrandMa.cpp
-	include/CookingGrandMa.hpp)
+	include/CookingGrandMa.hpp
+	src/Game.cpp
+	include/Game.hpp)
 
 target_link_libraries(
 	grandmaTD

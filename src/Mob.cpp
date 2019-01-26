@@ -66,6 +66,8 @@ bool	gtd::Mob::move(gtd::Map &map)
 	default:
 		return false;
 	}
+	if (this->_pos.x > map.getSize().x || this->_pos.x < 0 || this->_pos.y > map.getSize().y || this->_pos.y < 0)
+	   return false;
 	return true;
 }
 
