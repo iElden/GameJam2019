@@ -43,8 +43,3 @@ sf::Vector2u	gtd::Sprite::getSize() const
 {
 	return this->_size;
 }
-
-gtd::Sprite::~Sprite()
-{
-	std::cout << "Deleted Sprite !" << std::endl;
-}
