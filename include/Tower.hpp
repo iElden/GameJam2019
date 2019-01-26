@@ -24,7 +24,7 @@ namespace gtd {
 		Tower(const unsigned &cost,
 		      const Type &type,
 		      const sf::SoundBuffer &sBuffer,
-		      const gtd::Sprite &sprite,
+		      gtd::Sprite *sprite,
 		      const sf::Vector2u &pos,
 		      const double &displayedRange,
 		      const std::string &name = "Tower");
@@ -44,10 +44,10 @@ namespace gtd {
 
 	protected:
 		double		_displayedRange;
-		int		_animation;
-		unsigned	_level;
+		int		_animation = 0;
+		unsigned	_level = 0;
 		sf::Vector2u	_pos;
-		double		_angle;
+		double		_angle = 0;
 		double		_asBuff = 1;
 		double		_dmgBuff = 1;
 		double		_rangeBuff = 1;
@@ -56,7 +56,7 @@ namespace gtd {
 		sf::SoundBuffer	_sBuff;
 		sf::Sound	_sound;
 		Type		_type;
-		gtd::Sprite	_sprite;
+		gtd::Sprite	*_sprite;
 		std::string	_name;
 		unsigned	_cost;
 		bool		_isSelected = false;

@@ -21,7 +21,7 @@ namespace gtd {
 			 const double &damages,
 			 const unsigned &cost,
 			 const sf::SoundBuffer &sBuffer,
-			 const gtd::Sprite &sprite,
+			 gtd::Sprite *sprite,
 			 const sf::Vector2u &pos,
 			 const double &displayedRange,
 			 const bool &isAOE,
@@ -29,7 +29,7 @@ namespace gtd {
 		void	resetBuffs() override;
 		void	buff(const double &as, const double &dmg, const double &range) override;
 		void	upgrade(int level) override;
-		virtual void fire(std::vector<gtd::Mob *> &allMobs, const float &seconds);
+		virtual void fire(std::vector<gtd::Mob *> &allMobs);
 		virtual void update() override;
 		virtual	void applyEffects(gtd::Mob *mob) = 0;
 	};

@@ -9,7 +9,7 @@ gtd::ProdTower::ProdTower(const gtd::Food::Type &type,
 			  const int &value,
 			  const unsigned &cost,
 			  const sf::SoundBuffer &sBuffer,
-			  const gtd::Sprite &sprite,
+			  gtd::Sprite *sprite,
 			  const sf::Vector2u &pos,
 			  const double &displayedRange,
 			  const std::string &name) :
@@ -54,5 +54,9 @@ void	gtd::ProdTower::buff(const double &as, const double &dmg, const double &ran
 void	gtd::ProdTower::upgrade(int level)
 {
 	this->_value += 0.5 * level;
-	this->_prodSpeed *= (1 + level * 20.f / 100);
+	if (level > 0)
+		this->_prodSpeed *= (1 + level * 20. / 100);
+	else
+		this->_prodSpeed /= (1 + level * 20. / 100);
+	this->_level += level;
 }

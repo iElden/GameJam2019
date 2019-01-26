@@ -8,7 +8,7 @@ gtd::AtkTower::AtkTower(const double &attackSpeed,
 			const double &damages,
 			const unsigned &cost,
 			const sf::SoundBuffer &sBuffer,
-			const gtd::Sprite &sprite,
+			gtd::Sprite *sprite,
 			const sf::Vector2u &pos,
 			const double &displayedRange,
 			const bool &isAOE,
@@ -25,7 +25,7 @@ void gtd::AtkTower::update()
 	this->_buffer += 1;
 }
 
-void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs, const float &seconds)
+void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs)
 {
 	gtd::Mob	*best;
 	double		bestDist;
@@ -81,8 +81,10 @@ void	gtd::AtkTower::upgrade(int level)
 {
 	if (level > 0) {
 		this->_damages *= (1 + 0.15 * level);
-		this->_attackSpeed *= 1;
+		this->_attackSpeed *= (1 + 0.20 * level);
 	} else {
-		this->_damages /= 0.15 * level;
+		this->_damages /= (1 + 0.15 * level);
+		this->_attackSpeed /= (1 + 0.20 * level);
 	}
+	this->_level += level;
 }

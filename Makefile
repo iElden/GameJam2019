@@ -1,22 +1,25 @@
 NAME =	grandmaTD
 
-SRC = AtkTower.cpp  \
-    BuffTower.cpp   \
-    Logger.cpp      \
-    main.cpp        \
-    Map.cpp         \
-    Mob.cpp         \
-    ProdTower.cpp   \
-    Screen.cpp      \
-    Sprite.cpp      \
-    Tower.cpp       \
+SRC = AtkTower.cpp  	\
+    BuffTower.cpp   	\
+    Logger.cpp      	\
+    main.cpp        	\
+    Map.cpp         	\
+    Mob.cpp         	\
+    ProdTower.cpp   	\
+    Screen.cpp      	\
+    Sprite.cpp      	\
+    Tower.cpp       	\
+    CookingGrandMa.cpp	\
+    CakeGrandGa.cpp		\
+    TvGrandMa.cpp		\
 
 OBJ =	$(SRC:%.cpp=src/%.o)
 
-INC =	-Iinclude			\
+INC =	-Iinclude		\
 
 SFML = -lsfml-audio		\
-	-lsfml-graphics	\
+	-lsfml-graphics		\
 	-lsfml-network		\
 	-lsfml-system		\
 	-lsfml-window		\
@@ -24,10 +27,10 @@ SFML = -lsfml-audio		\
 
 LDFLAGS =
 
-CXXFLAGS= $(INC)			\
+CXXFLAGS= $(INC)\
 	-W			\
-	-Wall			\
-	-Wextra			\
+	-Wall		\
+	-Wextra		\
 
 CXX =	g++
 

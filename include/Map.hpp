@@ -22,6 +22,7 @@ namespace gtd {
 		Map(const std::string &spritePath, const sf::Vector2u &spriteSize, const std::string &mapHitbox);
 		const std::vector<Blocks>	&operator[](const unsigned &index);
 		sf::Vector2u			getSize();
+		sf::Vector2u			getStart();
 		void				display(Screen &screen);
 
 	private:

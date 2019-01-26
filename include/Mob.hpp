@@ -7,19 +7,24 @@
 
 
 #include <SFML/Graphics.hpp>
+#include "Map.hpp"
 
 namespace gtd {
 	class Mob {
 	public:
-		Mob(const double &maxHealth, const double &ms, const sf::Vector2f &pos);
-		void	move();
+		Mob(const double &maxHealth, const double &ms, const sf::Vector2f &pos, gtd::Sprite *sprite);
+		bool	move(gtd::Map &map);
 		void	takeDamage(const double &);
 		bool	isFull();
 		double	getBarPercentage();
+		void	display(gtd::Screen &screen);
 		sf::Vector2f getPos();
 
 	protected:
+		gtd::Map::Blocks _dir;
+		gtd::Sprite	*_sprite;
 		sf::Vector2f	_pos;
+		int		_animation = 0;
 		double		_movementSpeed;
 		double		_health;
 		double		_maxHealth;

@@ -23,7 +23,7 @@ namespace gtd {
 			  const int &value,
 			  const unsigned &cost,
 			  const sf::SoundBuffer &sBuffer,
-			  const gtd::Sprite &sprite,
+			  gtd::Sprite *sprite,
 			  const sf::Vector2u &pos,
 			  const double &displayedRange,
 			  const std::string &name = "Tower");

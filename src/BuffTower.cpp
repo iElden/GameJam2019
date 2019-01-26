@@ -9,7 +9,7 @@ gtd::BuffTower::BuffTower(const double &asM,
                           const double &rangeM,
                           const unsigned &cost,
                           const sf::SoundBuffer &sBuffer,
-                          const gtd::Sprite &sprite,
+                          gtd::Sprite *sprite,
                           const sf::Vector2u &pos,
                           const double &displayedRange,
                           const std::string &name) :
@@ -35,14 +35,22 @@ void gtd::BuffTower::resetBuffs()
 
 void gtd::BuffTower::buff(const double &as, const double &dmg, const double &range)
 {
-
+        (void)as;
+        (void)dmg;
+        (void)range;
 }
 
 void	gtd::BuffTower::upgrade(int level)
 {
         if (level > 0) {
+                this->_asMultiplier *= (1 - level * 15. / 100);
+                this->_dmgMultiplier *= (1 - level * 10. / 100);
         } else {
+                this->_asMultiplier /= (1 - level * 15. / 100);
+                this->_dmgMultiplier /= (1 - level * 10. / 100);
         }
+        this->_displayedRange += 0.5 * level;
+        this->_level += level;
 }
 
 void gtd::BuffTower::update()

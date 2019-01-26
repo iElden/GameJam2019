@@ -3,6 +3,7 @@
 //
 
 #include <fstream>
+#include <iostream>
 #include "Map.hpp"
 
 gtd::Map::Map(const std::string &spritePath, const sf::Vector2u &spriteSize, const std::string &mapHitbox) :
@@ -10,7 +11,7 @@ gtd::Map::Map(const std::string &spritePath, const sf::Vector2u &spriteSize, con
 	_sprite(spritePath, spriteSize),
 	_hitboxs()
 {
-	std::ifstream			stream;
+	std::ifstream			stream(mapHitbox, std::fstream::in);
 	std::string			line;
 	std::vector<gtd::Map::Blocks>	blocks;
 	sf::Vector2u			pos;
@@ -43,7 +44,14 @@ sf::Vector2u	gtd::Map::getSize()
 	return this->_sprite.getSize();
 }
 
+sf::Vector2u	gtd::Map::getStart()
+{
+	return this->_start;
+}
+
 const std::vector<gtd::Map::Blocks>	&gtd::Map::operator[](const unsigned &index)
 {
+	if (this->_hitboxs.size() <= index)
+		throw std::out_of_range(std::to_string(index) + " is out of range");
 	return	this->_hitboxs[index];
 }

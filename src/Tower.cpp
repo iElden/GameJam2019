@@ -10,14 +10,14 @@
 gtd::Tower::Tower(const unsigned &cost,
 		  const Type &type,
 		  const sf::SoundBuffer &sBuffer,
-		  const gtd::Sprite &sprite,
+		  gtd::Sprite *sprite,
 		  const sf::Vector2u &pos,
 		  const double &displayedRange,
 		  const std::string &name) :
+	_displayedRange(displayedRange),
 	_pos(pos),
 	_sBuff(sBuffer),
 	_type(type),
-	_displayedRange(displayedRange),
 	_sprite(sprite),
 	_name(name),
 	_cost(cost)
@@ -32,9 +32,9 @@ void	gtd::Tower::display(gtd::Screen &screen)
 		screen.fillColor(sf::Color(0, 0, 0, 75));
 		screen.displayElement(this->_displayedRange * 32, sf::Vector2f((this->_pos.x - this->_displayedRange + 0.5f) * 32, (this->_pos.y - this->_displayedRange + 0.5f) * 32));
 	}
-	this->_sprite._sprite.setRotation(this->_angle);
-	this->_sprite._sprite.setTextureRect(sf::IntRect(0, 0, this->_sprite.getSize().x, this->_sprite.getSize().y));
-	this->_sprite.display(screen, sf::Vector2f(this->_pos.x * 32, this->_pos.y * 32));
+	this->_sprite->_sprite.setRotation(this->_angle);
+	this->_sprite->_sprite.setTextureRect(sf::IntRect(0, 0, this->_sprite->getSize().x, this->_sprite->getSize().y));
+	this->_sprite->display(screen, sf::Vector2f(this->_pos.x * 32, this->_pos.y * 32));
 }
 
 unsigned	gtd::Tower::getLevel()
