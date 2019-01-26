@@ -20,10 +20,10 @@ gtd::Map::Map(const std::string &spritePath, const sf::Vector2u &spriteSize, con
 			if (!isdigit(c))
 				throw std::invalid_argument(std::string("Invalid character '") + c + "'");
 			if (c > '5') {
-				blocks.emplace_back(c - '5');
+				blocks.emplace_back(static_cast<gtd::Map::Blocks>(c - '5'));
 				this->_start = pos;
 			} else
-				blocks.emplace_back(c - '0');
+				blocks.emplace_back(static_cast<gtd::Map::Blocks>(c - '0'));
 			pos.x += 1;
 		}
 		this->_hitboxs.emplace_back(blocks);

@@ -2,6 +2,7 @@
 // Created by Andgel on 25/01/2019.
 //
 
+#include "Logger.hpp"
 #include "Sprite.hpp"
 
 gtd::Sprite::Sprite(const std::string &path, const sf::Vector2u &size) :
@@ -12,6 +13,8 @@ gtd::Sprite::Sprite(const std::string &path, const sf::Vector2u &size) :
 	this->_isLoaded = this->_texture.loadFromFile(path);
 	if (this->_isLoaded)
 		this->setTexture(this->_texture);
+	else
+		logger.error("Cannot load file " + path);
 }
 
 void	gtd::Sprite::display(gtd::Screen &screen, const sf::Vector2f &pos)
