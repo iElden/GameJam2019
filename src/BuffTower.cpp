@@ -12,17 +12,19 @@ gtd::BuffTower::BuffTower(const double &asM,
                           const gtd::Sprite &sprite,
                           const sf::Vector2u &pos,
                           const double &displayedRange,
-                          const std::string &name)
-        : Tower(cost, gtd::Tower::Buff, sBuffer , sprite, pos, displayedRange, name)
+                          const std::string &name) :
+        Tower(cost, gtd::Tower::Buff, sBuffer , sprite, pos, displayedRange, name),
+        _asMultiplier(asM),
+        _dmgMultiplier(dmgM),
+        _rangeMultiplier(rangeM)
 {
-        
 }
 
 void gtd::BuffTower::buffTowers(std::vector<gtd::Tower *> &allTowers)
 {
         for (gtd::Tower *tower : allTowers) {
                 if (this->getDistanceTo(tower->getPosition()) <= this->_displayedRange)
-                        tower->buff(1.2, 1.2, 1.2);
+                        tower->buff(this->_asMultiplier, this->_dmgMultiplier, this->_rangeMultiplier);
         }
 }
 
