@@ -30,7 +30,10 @@ bool	gtd::Mob::move(gtd::Map &map)
 {
 	double	end = this->_movementSpeed / 10;
 
+
 	for (; end > 0.1; end -= 0.1) {
+        if (this->_pos.x > map.getSize().x/32 || this->_pos.x < 0 || this->_pos.y > map.getSize().y/32 || this->_pos.y < 0)
+            return false;
 		this->_dir = map[this->_pos.y + (this->_dir == gtd::Map::UP) * 0.9][this->_pos.x + (this->_dir == gtd::Map::LEFT) * 0.9];
 		switch (this->_dir) {
 			case gtd::Map::UP:
@@ -49,6 +52,8 @@ bool	gtd::Mob::move(gtd::Map &map)
 				return false;
 		}
 	}
+	if (this->_pos.x > map.getSize().x/32 || this->_pos.x < 0 || this->_pos.y > map.getSize().y/32 || this->_pos.y < 0)
+		return false;
 	this->_dir = map[this->_pos.y + (this->_dir == gtd::Map::UP) * 0.9][this->_pos.x + (this->_dir == gtd::Map::LEFT) * 0.9];
 	switch (this->_dir) {
 	case gtd::Map::UP:
@@ -66,8 +71,6 @@ bool	gtd::Mob::move(gtd::Map &map)
 	default:
 		return false;
 	}
-	if (this->_pos.x > map.getSize().x || this->_pos.x < 0 || this->_pos.y > map.getSize().y || this->_pos.y < 0)
-	   return false;
 	return true;
 }
 

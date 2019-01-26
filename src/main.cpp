@@ -14,7 +14,7 @@ std::map<std::string, gtd::Sprite *>	sprites;
 
 void	spawnMobs(std::vector<gtd::Mob *> &mobs, const sf::Vector2u &start)
 {
-	mobs.emplace_back(new gtd::Mob(rand() % 30000, rand() % 300 / 200., sf::Vector2f(start.x, start.y), sprites["boi"]));
+	mobs.emplace_back(new gtd::Mob(rand() % 30000, 5 + rand() % 300 / 200., sf::Vector2f(start.x, start.y), sprites["boi"]));
 }
 
 void	game()
