@@ -15,9 +15,11 @@ class Sprite {
 		sf::Sprite	_sprite;
 		sf::Texture	_texture;
 		sf::Vector2u	_size;
+		std::string	_path;
 		bool		_isLoaded;
 
 		Sprite(const std::string &path, const sf::Vector2u &size);
+		Sprite(const Sprite &);
 		~Sprite();
 		sf::Vector2u	getSize() const;
 		void	display(gtd::Screen &screen, const sf::Vector2f &pos);

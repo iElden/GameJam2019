@@ -5,6 +5,6 @@
 #include "CookingGrandMa.hpp"
 
 gtd::CookingGrandMa::CookingGrandMa(const sf::SoundBuffer &sBuffer, const sf::Vector2u &pos)
-: ProdTower(Food::Vegan, 3.5, 20, 20, sBuffer, *new gtd::Sprite("assets/cooking.png", sf::Vector2u(32, 32)), pos, 25, "Cooking Grand-ma")
+: ProdTower(Food::Vegan, 3.5, 20, 20, sBuffer, gtd::Sprite("assets/cooking.png", sf::Vector2u(32, 32)), pos, 25, "Cooking Grand-ma")
 {
 }

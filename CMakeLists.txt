@@ -32,7 +32,7 @@ add_executable(
 	src/CakeGrandGa.cpp
 	include/TvGrandMa.hpp
 	src/TvGrandMa.cpp
-	include/CookingGrandMa.cpp
+	src/CookingGrandMa.cpp
 	include/CookingGrandMa.hpp)
 
 target_link_libraries(

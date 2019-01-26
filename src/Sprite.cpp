@@ -9,6 +9,7 @@
 gtd::Sprite::Sprite(const std::string &path, const sf::Vector2u &size) :
 	_texture(),
 	_size(size),
+	_path(path),
 	_isLoaded(false)
 {
 	this->_isLoaded = this->_texture.loadFromFile(path);
@@ -16,6 +17,16 @@ gtd::Sprite::Sprite(const std::string &path, const sf::Vector2u &size) :
 		this->_sprite.setTexture(this->_texture);
 	else
 		logger.error("Cannot load file " + path);
+}
+
+gtd::Sprite::Sprite(const Sprite &value)
+{
+	this->_size = value._size;
+	this->_isLoaded = this->_texture.loadFromFile(value._path);
+	if (this->_isLoaded)
+		this->_sprite.setTexture(this->_texture);
+	else
+		logger.error("Cannot load file " + value._path);
 }
 
 void	gtd::Sprite::display(gtd::Screen &screen, const sf::Vector2f &pos)
