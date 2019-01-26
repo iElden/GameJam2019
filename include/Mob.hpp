@@ -19,6 +19,7 @@ namespace gtd {
 		double	getBarPercentage();
 		void	display(gtd::Screen &screen);
 		sf::Vector2f getPos();
+		sf::Vector2u getSize();
 
 	protected:
 		gtd::Map::Blocks _dir;

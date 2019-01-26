@@ -3,6 +3,7 @@
 #include "CookingGrandMa.hpp"
 #include "CakeGrandGa.hpp"
 #include "TvGrandMa.hpp"
+#include "AtkTower.hpp"
 #include "Logger.hpp"
 #include "Screen.hpp"
 #include "Tower.hpp"
@@ -25,8 +26,8 @@ void	game()
 	sf::SoundBuffer			sBuffer;
 
 	spawnMobs(mobs, map.getStart());
-	spawnMobs(mobs, map.getStart());
-	spawnMobs(mobs, map.getStart());
+	//spawnMobs(mobs, map.getStart());
+	//spawnMobs(mobs, map.getStart());
 	srand(time(NULL));
 	for (unsigned i = 0; i < 17; i++) {
 		for (unsigned j = 0; j < 15; j++) {
@@ -39,6 +40,7 @@ void	game()
 					break;
 				case 1:
 					towers.emplace_back(new gtd::CakeGrandMa(sBuffer, sf::Vector2u(i, j)));
+						towers[towers.size() - 1]->select();
 					break;
 				case 2:
 					towers.emplace_back(new gtd::TvGrandMa(sBuffer, sf::Vector2u(i, j)));
@@ -46,13 +48,16 @@ void	game()
 			}
 		}
 	}
-	towers[0]->select();
 	while (screen.isOpen()) {
 		screen.clear();
 		map.display(screen);
 		for (gtd::Tower *tower : towers) {
 			tower->update();
 			tower->display(screen);
+			switch (tower->getType()) {
+			case gtd::Tower::Attack:
+				(reinterpret_cast<gtd::AtkTower *>(tower))->fire(mobs);
+			}
 		}
 		for (gtd::Mob *mob : mobs) {
 			mob->move(map);

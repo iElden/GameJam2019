@@ -64,6 +64,11 @@ double	gtd::Tower::getDistanceTo(const sf::Vector2f &pt)
 	return sqrt(pow(pt.x - this->_pos.x, 2) + pow(pt.y - this->_pos.y, 2));
 }
 
+double	gtd::Tower::getDistanceTo(const sf::Vector2f &pt, const sf::Vector2u &size)
+{
+	return sqrt(pow((pt.x + size.x / 2) - (this->_pos.x + this->_sprite->_size.x / 2), 2) + pow((pt.y + size.y / 2) - (this->_pos.y + this->_sprite->_size.y / 2), 2));
+}
+
 sf::Vector2f	gtd::Tower::getPosition()
 {
 	return (sf::Vector2f(this->_pos.x, this->_pos.y));
