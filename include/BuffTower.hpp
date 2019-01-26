@@ -17,7 +17,9 @@ namespace gtd {
 
 	public:
 		BuffTower(const double &asM, const double &dmgM, const double &rangeM);
-		virtual void buff(const std::vector<gtd::Tower *> &allTowers, const float &seconds);
+		virtual void	buffTowers(const std::vector<gtd::Tower *> &allTowers);
+		void		resetBuffs() override;
+		void		buff(const double &as, const double &dmg, const double &range) override;
 	};
 }
 
