@@ -4,28 +4,28 @@
 
 #include "../include/Game.hpp"
 
-unsigned Game::getLive() const
+unsigned gtd::Game::getLive() const
 {
     return this->_live;
 }
 
-unsigned Game::getMoney() const
+unsigned gtd::Game::getMoney() const
 {
     return this->_money;
 }
 
-unsigned Game::getWave() const
+unsigned gtd::Game::getWave() const
 {
     return this->_wave;
 }
 
-bool Game::lostLife()
+bool gtd::Game::lostLife()
 {
     this->_live -= 1;
     return (this->_live > 0);
 }
 
-bool Game::pay(unsigned value)
+bool gtd::Game::pay(unsigned value)
 {
     if (this->_money < value)
         return false;
@@ -33,7 +33,7 @@ bool Game::pay(unsigned value)
     return true;
 }
 
-void Game::wonMoney(unsigned value)
+void gtd::Game::wonMoney(unsigned value)
 {
     this->_money += value;
 }
