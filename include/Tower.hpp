@@ -33,19 +33,24 @@ namespace gtd {
 		unsigned	getCost();
 		Type		getType();
 		std::string	getName();
-		virtual	void	update(const float &timeSpent) = 0;
+		virtual void	resetBuffs() = 0;
 		virtual	void	upgrade(int level) = 0;
+		virtual	void	update(const float &timeSpent) = 0;
+		virtual	void	buff(const double &as, const double &dmg, const double &range) = 0;
 
 	protected:
+		double		_displayedRange;
 		int		_animation;
 		unsigned	_level;
 		sf::Vector2u	_pos;
+		double		_asBuff;
+		double		_dmgBuff;
+		double		_rangeBuff;
 
 	private:
 		sf::SoundBuffer	_sBuff;
 		sf::Sound	_sound;
 		Type		_type;
-		double		_displayedRange;
 		gtd::Sprite	_sprite;
 		std::string	_name;
 		double		_angle;
