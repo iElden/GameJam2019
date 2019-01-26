@@ -5,6 +5,9 @@
 #include <cmath>
 #include <iostream>
 #include "AtkTower.hpp"
+#include "Game.hpp"
+
+extern gtd::Game *game;
 
 gtd::AtkTower::AtkTower(const double &attackSpeed,
 			const double &damages,
@@ -25,6 +28,11 @@ gtd::AtkTower::AtkTower(const double &attackSpeed,
 void gtd::AtkTower::update()
 {
 	this->_buffer += 1;
+	if (this->_isAttacking) {
+		this->update_animation();
+	} else {
+		this->_animation = 0;
+	}
 }
 
 void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs, gtd::Game &game)
@@ -33,6 +41,7 @@ void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs, gtd::Game &game)
 	double		bestDist;
 
 	if (this->_buffer > 60. / this->_attackSpeed && !allMobs.empty()) {
+        this->_isAttacking = false;
 		if (game.stock.stock[gtd::Food::Any] >= 1.)
 			game.stock.stock[gtd::Food::Any] -= 1;
 		else if (game.stock.stock[gtd::Food::GlutenFree] >= 1.)
@@ -58,6 +67,7 @@ void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs, gtd::Game &game)
 				double          distance = sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2));
 				sf::Vector2f    vec2((point2.x - point1.x) / distance, (point2.y - point1.y) / distance);
 
+				this->_isAttacking = true;
 				this->_angle = atan2(vec2.y, vec2.x) * 180 / M_PI;
 				best->takeDamage(_damages);
 				this->applyEffects(best);
@@ -67,6 +77,7 @@ void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs, gtd::Game &game)
 				if (this->getDistanceTo(mob->getPos()) <= this->_displayedRange) {
 					mob->takeDamage(this->_damages);
 					this->applyEffects(mob);
+                    this->_isAttacking = true;
 				}
 			}
 		}
@@ -105,4 +116,15 @@ void	gtd::AtkTower::upgrade(int level)
 		this->_attackSpeed /= (1 + 0.20 * level);
 	}
 	this->_level += level;
+}
+
+void gtd::AtkTower::update_animation()
+{
+	sf::Time currentTime = game->clock.getElapsedTime();
+	if (currentTime - _animation1FrameStartTime >= _animation1FrameDuration) {
+		this->_animation += 1;
+		this->_animation %= (this->_sprite->_texture.getSize().x /
+							 this->_sprite->getSize().x);
+		_animation1FrameStartTime = currentTime;
+	}
 }

@@ -53,12 +53,12 @@ namespace gtd {
 		double		_asBuff = 1;
 		double		_dmgBuff = 1;
 		double		_rangeBuff = 1;
+		gtd::Sprite	*_sprite;
 
 	private:
 		sf::SoundBuffer	_sBuff;
 		sf::Sound	_sound;
 		Type		_type;
-		gtd::Sprite	*_sprite;
 		std::string	_name;
 		bool		_isSelected = false;
 		unsigned	_cost;

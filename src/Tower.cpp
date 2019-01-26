@@ -34,7 +34,10 @@ void	gtd::Tower::display(gtd::Screen &screen)
 	}
 	this->_sprite->_sprite.setOrigin(this->_sprite->_size.x / 2, this->_sprite->_size.y / 2);
 	this->_sprite->_sprite.setRotation(this->_angle);
-	this->_sprite->_sprite.setTextureRect(sf::IntRect(0, 0, this->_sprite->getSize().x, this->_sprite->getSize().y));
+	this->_sprite->_sprite.setTextureRect(
+			sf::IntRect(this->_sprite->getSize().x * this->_animation, 0,
+						this->_sprite->getSize().x,
+						this->_sprite->getSize().y));
 	this->_sprite->display(screen, sf::Vector2f(this->_pos.x * 32 + this->_sprite->_size.x / 2, this->_pos.y * 32 + this->_sprite->_size.y / 2));
 	this->_sprite->_sprite.setOrigin(0, 0);
 }

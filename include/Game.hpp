@@ -6,6 +6,7 @@
 #define GAMEJAM2019_GAME_HPP
 
 
+#include <SFML/System/Clock.hpp>
 #include "Resources.hpp"
 
 namespace  gtd {
@@ -19,7 +20,7 @@ namespace  gtd {
 		bool lostLife();
 		void nextWave();
 		gtd::Food	stock;
-
+		sf::Clock	clock;
 	private:
 		unsigned _live = 100;
 		unsigned _money = 1000;

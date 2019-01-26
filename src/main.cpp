@@ -226,8 +226,10 @@ void	game_fct()
 				mobs.erase(mobs.begin() + i);
 				i--;
 				game->wonMoney(10);
-			} else
+			} else {
+				mob->update_animation();
 				mob->display(screen);
+			}
 		}
 		displayHUD(screen, _map, _towers);
 		screen.handleEvents(handleClick);

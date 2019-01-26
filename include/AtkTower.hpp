@@ -16,6 +16,9 @@ namespace gtd {
 		double	_attackSpeed;
 		double	_damages;
 		bool	_isAOE;
+		bool	_isAttacking = false;
+		sf::Time _animation1FrameStartTime{ sf::Time::Zero };
+		sf::Time _animation1FrameDuration{ sf::seconds(1.f / 4.f) }; // 1 frames per second
 
 	public:
 		AtkTower(const double &attackSpeed,
@@ -27,6 +30,7 @@ namespace gtd {
 			 const double &displayedRange,
 			 const bool &isAOE,
 			 const std::string &name = "Attack Tower");
+		void update_animation();
 		void	resetBuffs() override;
 		void	buff(const double &as, const double &dmg, const double &range) override;
 		void	upgrade(int level) override;

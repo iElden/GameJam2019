@@ -3,6 +3,9 @@
 //
 
 #include "BuffTower.hpp"
+#include "Game.hpp"
+
+extern gtd::Game *game;
 
 gtd::BuffTower::BuffTower(const double &asM,
                           const double &dmgM,
@@ -55,5 +58,16 @@ void	gtd::BuffTower::upgrade(int level)
 
 void gtd::BuffTower::update()
 {
+        this->update_animation();
+}
 
+void gtd::BuffTower::update_animation()
+{
+        sf::Time currentTime = game->clock.getElapsedTime();
+        if (currentTime - _animation1FrameStartTime >= _animation1FrameDuration) {
+                this->_animation += 1;
+                this->_animation %= (this->_sprite->_texture.getSize().x /
+                                     this->_sprite->getSize().x);
+                _animation1FrameStartTime = currentTime;
+        }
 }

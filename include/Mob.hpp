@@ -16,6 +16,7 @@ namespace gtd {
 		bool	move(gtd::Map &map);
 		void	takeDamage(const double &);
 		bool	isFull();
+        void update_animation();
 		double	getBarPercentage();
 		void	display(gtd::Screen &screen);
 		sf::Vector2f getPos();
@@ -26,6 +27,9 @@ namespace gtd {
 		gtd::Sprite	*_sprite;
 		sf::Vector2f	_pos;
 		int		_animation = 0;
+        sf::Time _animation1FrameStartTime{ sf::Time::Zero };
+        sf::Time _animation1FrameDuration{ sf::seconds(1.f / 4.f) }; // 12 frames per second
+		double      _animationSpeed = 250;
 		double		_movementSpeed;
 		double		_health;
 		double		_maxHealth;

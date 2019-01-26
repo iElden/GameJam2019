@@ -6,6 +6,10 @@
 #include <cmath>
 #include "Map.hpp"
 #include "Mob.hpp"
+#include "Game.hpp"
+
+extern gtd::Game *game;
+
 
 gtd::Mob::Mob(const double &maxHealth, const double &ms, const sf::Vector2f &pos, gtd::Sprite *sprite) :
 	_sprite(sprite),
@@ -20,6 +24,10 @@ void gtd::Mob::display(gtd::Screen &screen)
 {
 	this->_sprite->_sprite.setOrigin(this->_sprite->_size.x / 2, this->_sprite->_size.y / 2);
 	this->_sprite->_sprite.setRotation((this->_dir - gtd::Map::UP) * (90) - 90);
+	this->_sprite->_sprite.setTextureRect(
+			sf::IntRect(this->_sprite->getSize().x * this->_animation, 0,
+						this->_sprite->getSize().x,
+						this->_sprite->getSize().y));
 	this->_sprite->display(screen, sf::Vector2f(this->_pos.x * 32 + this->_sprite->_size.x / 2, this->_pos.y * 32 + this->_sprite->_size.y / 2));
 	this->_sprite->_sprite.setOrigin(0, 0);
 	screen.fillColor(sf::Color(0, 255, 0, 255));
@@ -30,8 +38,7 @@ bool	gtd::Mob::move(gtd::Map &map)
 {
 	double	end = this->_movementSpeed / 10;
 
-
-	for (; end > 0.1; end -= 0.1) {
+    for (; end > 0.1; end -= 0.1) {
         if (this->_pos.x > map.getSize().x/32 || this->_pos.x < 0 || this->_pos.y > map.getSize().y/32 || this->_pos.y < 0)
             return false;
 		this->_dir = map[this->_pos.y + (this->_dir == gtd::Map::UP) * 0.9][this->_pos.x + (this->_dir == gtd::Map::LEFT) * 0.9];
@@ -99,4 +106,13 @@ double gtd::Mob::getBarPercentage()
 sf::Vector2u gtd::Mob::getSize()
 {
 	return  (this->_sprite->_size);
+}
+
+void gtd::Mob::update_animation() {
+    sf::Time currentTime = game->clock.getElapsedTime();
+    if (currentTime - _animation1FrameStartTime >= _animation1FrameDuration) {
+        this->_animation += 1;
+        this->_animation %= (this->_sprite->_texture.getSize().x / this->_sprite->getSize().x);
+        _animation1FrameStartTime = currentTime;
+    }
 }
