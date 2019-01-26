@@ -12,6 +12,7 @@
 class Logger {
 private:
 	std::ofstream	file;
+
 public:
 	explicit Logger(const std::string &filepath = "./latest.log") noexcept;
 	~Logger() noexcept;

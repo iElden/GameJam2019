@@ -7,6 +7,7 @@ include_directories(include)
 
 add_executable(
 	grandmaTD
+	icon.rc
 	src/main.cpp
 	src/Logger.cpp
 	include/Logger.hpp
