@@ -16,8 +16,16 @@ namespace gtd {
 		double	_rangeMultiplier;
 
 	public:
-		BuffTower(const double &asM, const double &dmgM, const double &rangeM);
-		virtual void	buffTowers(const std::vector<gtd::Tower *> &allTowers);
+		BuffTower(const double &asM,
+			  const double &dmgM,
+			  const double &rangeM,
+			  const unsigned &cost,
+			  const sf::SoundBuffer &sBuffer,
+			  const gtd::Sprite &sprite,
+			  const sf::Vector2u &pos,
+			  const double &displayedRange,
+			  const std::string &name);
+		virtual void	buffTowers(std::vector<gtd::Tower *> &allTowers);
 		void		resetBuffs() override;
 		void		buff(const double &as, const double &dmg, const double &range) override;
 	};
