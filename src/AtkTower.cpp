@@ -33,6 +33,16 @@ void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs, gtd::Game &game)
 	double		bestDist;
 
 	if (this->_buffer > 60. / this->_attackSpeed && !allMobs.empty()) {
+		if (game.stock.stock[gtd::Food::Any] >= 1.)
+			game.stock.stock[gtd::Food::Any] -= 1;
+		else if (game.stock.stock[gtd::Food::GlutenFree] >= 1.)
+			game.stock.stock[gtd::Food::GlutenFree] -= 1.;
+		else if (game.stock.stock[gtd::Food::Vegan] >= 1.)
+			game.stock.stock[gtd::Food::Vegan] -= 1.;
+		else if (game.stock.stock[gtd::Food::Carnivore] >= 1.)
+			game.stock.stock[gtd::Food::Carnivore] -= 1.;
+		else
+			return;
 		if (!this->_isAOE) {
 			best = allMobs[0];
 			bestDist = this->getDistanceTo(best->getPos());
@@ -60,14 +70,6 @@ void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs, gtd::Game &game)
 				}
 			}
 		}
-		if (game.stock.stock[gtd::Food::Any])
-			game.stock.stock[gtd::Food::Any] -= 1;
-		else if (game.stock.stock[gtd::Food::GlutenFree])
-			game.stock.stock[gtd::Food::GlutenFree] -= 1;
-		else if (game.stock.stock[gtd::Food::Vegan])
-			game.stock.stock[gtd::Food::Vegan] -= 1;
-		else if (game.stock.stock[gtd::Food::Carnivore])
-			game.stock.stock[gtd::Food::Carnivore] -= 1;
 		this->_buffer = 0;
 	}
 }

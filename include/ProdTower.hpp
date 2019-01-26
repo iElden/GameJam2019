@@ -18,15 +18,14 @@ namespace gtd {
 		double		_value;
 
 	public:
-		ProdTower(const gtd::Food::Type &type,
-			  const double &speed,
+		ProdTower(const double &speed,
 			  const int &value,
 			  const unsigned &cost,
 			  const sf::SoundBuffer &sBuffer,
 			  gtd::Sprite *sprite,
 			  const sf::Vector2u &pos,
 			  const double &displayedRange,
-			  const std::string &name = "Tower");
+			  const std::string &name = "Prod Tower");
 		void		resetBuffs() override;
 		void		buff(const double &as, const double &dmg, const double &range) override;
 		void		upgrade(int level) override;

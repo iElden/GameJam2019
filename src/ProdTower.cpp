@@ -4,8 +4,7 @@
 
 #include "ProdTower.hpp"
 
-gtd::ProdTower::ProdTower(const gtd::Food::Type &type,
-			  const double &speed,
+gtd::ProdTower::ProdTower(const double &speed,
 			  const int &value,
 			  const unsigned &cost,
 			  const sf::SoundBuffer &sBuffer,
@@ -14,15 +13,29 @@ gtd::ProdTower::ProdTower(const gtd::Food::Type &type,
 			  const double &displayedRange,
 			  const std::string &name) :
 	gtd::Tower(cost, gtd::Tower::Production, sBuffer, sprite, pos, displayedRange, name),
-	_prodType(type),
 	_prodSpeed(speed),
 	_value(value)
 {
+	int typeFood = rand() % 4;
+	switch (typeFood) {
+		case 0:
+			_prodType = gtd::Food::Any;
+			break;
+		case 1:
+			_prodType = gtd::Food::GlutenFree;
+			break;
+		case 2:
+			_prodType = gtd::Food::Vegan;
+			break;
+		case 3:
+			_prodType = gtd::Food::Carnivore;
+			break;
+	}
 }
 
 void	gtd::ProdTower::prod(gtd::Food &stock)
 {
-	if (this->_buffer >= 60. / this->_prodSpeed)
+	if (this->_buffer >= 90. / this->_prodSpeed)
 		this->_buffer = 0;
 	else
 		return;
