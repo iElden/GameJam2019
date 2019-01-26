@@ -17,6 +17,7 @@ gtd::Sprite::Sprite(const std::string &path, const sf::Vector2u &size) :
 		this->_sprite.setTexture(this->_texture);
 	else
 		logger.error("Cannot load file " + path);
+	this->_sprite.setTextureRect(sf::IntRect(0, 0, size.x, size.y));
 }
 
 gtd::Sprite::Sprite(const Sprite &value)

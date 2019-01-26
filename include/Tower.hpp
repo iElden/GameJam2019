@@ -47,7 +47,7 @@ namespace gtd {
 		int		_animation = 0;
 		unsigned	_level = 0;
 		sf::Vector2u	_pos;
-		double		_angle = 0;
+		double		_angle = 90;
 		double		_asBuff = 1;
 		double		_dmgBuff = 1;
 		double		_rangeBuff = 1;

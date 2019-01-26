@@ -32,9 +32,11 @@ void	gtd::Tower::display(gtd::Screen &screen)
 		screen.fillColor(sf::Color(0, 0, 0, 75));
 		screen.displayElement(this->_displayedRange * 32, sf::Vector2f((this->_pos.x - this->_displayedRange + 0.5f) * 32, (this->_pos.y - this->_displayedRange + 0.5f) * 32));
 	}
+	this->_sprite->_sprite.setOrigin(this->_sprite->_size.x / 2, this->_sprite->_size.y / 2);
 	this->_sprite->_sprite.setRotation(this->_angle);
 	this->_sprite->_sprite.setTextureRect(sf::IntRect(0, 0, this->_sprite->getSize().x, this->_sprite->getSize().y));
-	this->_sprite->display(screen, sf::Vector2f(this->_pos.x * 32, this->_pos.y * 32));
+	this->_sprite->display(screen, sf::Vector2f(this->_pos.x * 32 + this->_sprite->_size.x / 2, this->_pos.y * 32 + this->_sprite->_size.y / 2));
+	this->_sprite->_sprite.setOrigin(0, 0);
 }
 
 unsigned	gtd::Tower::getLevel()

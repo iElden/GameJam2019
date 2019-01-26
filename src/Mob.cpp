@@ -18,16 +18,16 @@ gtd::Mob::Mob(const double &maxHealth, const double &ms, const sf::Vector2f &pos
 
 void gtd::Mob::display(gtd::Screen &screen)
 {
-	this->_sprite->display(screen, sf::Vector2f(this->_pos.x * 32, this->_pos.y * 32));
+	this->_sprite->_sprite.setOrigin(this->_sprite->_size.x / 2, this->_sprite->_size.y / 2);
+	this->_sprite->_sprite.setRotation((this->_dir - gtd::Map::UP) * (90) - 90);
+	this->_sprite->display(screen, sf::Vector2f(this->_pos.x * 32 + this->_sprite->_size.x / 2, this->_pos.y * 32 + this->_sprite->_size.y / 2));
+	this->_sprite->_sprite.setOrigin(0, 0);
 }
 
 bool	gtd::Mob::move(gtd::Map &map)
 {
 	double	end = this->_movementSpeed / 10;
 
-	this->_animation += 1;
-	this->_animation %= 4;
-	this->_sprite->_sprite.setTextureRect(sf::IntRect(0, this->_sprite->getSize().x * this->_animation, this->_sprite->getSize().x, this->_sprite->getSize().y));
 	for (; end > 0.1; end -= 0.1) {
 		this->_dir = map[this->_pos.y + (this->_dir == gtd::Map::UP) * 0.9][this->_pos.x + (this->_dir == gtd::Map::LEFT) * 0.9];
 		switch (this->_dir) {
