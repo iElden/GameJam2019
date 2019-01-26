@@ -37,3 +37,4 @@ build
 
 # CLion config files
 .idea
+latest.log
