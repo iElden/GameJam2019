@@ -7,7 +7,7 @@
 #include "Logger.hpp"
 #include "Screen.hpp"
 #include "Tower.hpp"
-#include "game.hpp"
+#include "Game.hpp"
 #include "Map.hpp"
 
 Logger					logger("./latest.log");
@@ -16,14 +16,61 @@ gtd::Game				*game;
 gtd::Map				*map;
 std::vector<gtd::Tower *>		*towers;
 int					selected = -1;
+sf::Vector2u				selectedBox(0, 0);
+sf::SoundBuffer				sBuffer;
+
+int	getTowerAtPos(int x, int y)
+{
+	for (int i = 0; i < towers->size(); i++)
+		if (static_cast<int>((*towers)[i]->getPosition().x) == x && static_cast<int>((*towers)[i]->getPosition().y) == y)
+			return i;
+	throw std::exception();
+}
 
 void	handleClick(sf::Event &event)
 {
 	if (event.type == sf::Event::MouseButtonPressed) {
-		if (event.mouseButton.button == sf::Mouse::Right)
+		if (event.mouseButton.button == sf::Mouse::Right) {
+			if (selected >= 0)
+				(*towers)[selected]->select();
 			selected = -1;
-		else if (event.mouseButton.x < 544 && (*map)[event.mouseButton.y / 32][event.mouseButton.x / 32] == gtd::Map::NOTHING)
-			;
+		} else if (event.mouseButton.x < 544 && (*map)[event.mouseButton.y / 32][event.mouseButton.x / 32] == gtd::Map::NOTHING) {
+			try {
+				if (selected >= 0)
+					(*towers)[selected]->select();
+				selected = getTowerAtPos(event.mouseButton.x / 32, event.mouseButton.y / 32);
+				(*towers)[selected]->select();
+			} catch (std::exception &e) {
+				selected = -2;
+			}
+			selectedBox = sf::Vector2u(event.mouseButton.x / 32, event.mouseButton.y / 32);
+		} else if (event.mouseButton.x > 544 && event.mouseButton.y >= 418 && event.mouseButton.y <= 448 && selected >= 0) {
+			game->wonMoney((*towers)[selected]->getRefund());
+			delete (*towers)[selected];
+			(*towers).erase((*towers).begin() + selected);
+			selected = -1;
+		} else if (selected == -2 && event.mouseButton.x >= 546) {
+			if (event.mouseButton.y >= 114 && event.mouseButton.y < 164) {
+				if (event.mouseButton.x < 600 && game->pay(gtd::CookingGrandMa::cost)) {
+					towers->emplace_back(new gtd::CookingGrandMa(sBuffer, selectedBox));
+					selected = -1;
+				} else if (event.mouseButton.x >= 600 && game->pay(gtd::TvGrandMa::cost)) {
+					towers->emplace_back(new gtd::TvGrandMa(sBuffer, selectedBox));
+					selected = -1;
+				}
+			} else if (event.mouseButton.y >= 164 && event.mouseButton.y < 214) {
+				if (event.mouseButton.x < 600 && game->pay(gtd::CookingGrandMa::cost)) {
+					towers->emplace_back(new gtd::CakeGrandMa(sBuffer, selectedBox));
+					selected = -1;
+				} else if (event.mouseButton.x >= 600 && game->pay(gtd::TvGrandMa::cost)) {
+					//towers->emplace_back(new gtd::CookingGrandMa(sBuffer, selectedBox));
+				}
+			}
+		} else {
+			if (selected >= 0)
+				(*towers)[selected]->select();
+			selected = -1;
+		}
 	}
 }
 
@@ -48,6 +95,34 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 		screen.fillColor(sf::Color(0, 0, 0));
 		screen.displayElement(std::to_string(static_cast<int>(game->stock.stock[i])), sf::Vector2f(570, 40 + i * 18));
 	}
+	if (selected >= 0) {
+		screen.fillColor(sf::Color(255, 0, 0));
+		screen.displayElement(sf::IntRect(544, 418, 100, 30));
+		screen.fillColor(sf::Color(0, 0, 0));
+		screen.displayElement("Sell for", sf::Vector2f(572, 418));
+		screen.displayElement(std::to_string(static_cast<int>(towers[selected]->getRefund())) + "$", sf::Vector2f(580, 430));
+	}
+	if (selected == -2) {
+		screen.fillColor(sf::Color(0, 255, 0, 120));
+		screen.displayElement(sf::IntRect(selectedBox.x * 32, selectedBox.y * 32, 32, 32));
+		screen.fillColor(sf::Color(120, 120, 120));
+		screen.displayElement(sf::IntRect(546, 115, 800, 110));
+
+		screen.fillColor(gtd::CookingGrandMa::cost <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
+		sprites["cooking"]->_sprite.setRotation(90);
+		screen.displayElement(sprites["cooking"]->_sprite, sf::Vector2f(590, 120));
+		screen.displayElement(std::to_string(gtd::CookingGrandMa::cost) + "$", sf::Vector2f(564, 150));
+
+		screen.fillColor(gtd::TvGrandMa::cost <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
+		sprites["tv"]->_sprite.setRotation(90);
+		screen.displayElement(sprites["tv"]->_sprite, sf::Vector2f(630, 120));
+		screen.displayElement(std::to_string(gtd::TvGrandMa::cost) + "$", sf::Vector2f(604, 150));
+
+		screen.fillColor(gtd::CakeGrandMa::cost <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
+		sprites["grandma1"]->_sprite.setRotation(90);
+		screen.displayElement(sprites["grandma1"]->_sprite, sf::Vector2f(590, 170));
+		screen.displayElement(std::to_string(gtd::CakeGrandMa::cost) + "$", sf::Vector2f(564, 200));
+	}
 	screen.displayElement("Wave " + std::to_string(game->getWave()), sf::Vector2f(550, 450));
 }
 
@@ -57,7 +132,6 @@ void	game_fct()
 	gtd::Map			_map("assets/map.png", sf::Vector2u(17 * 32, 15 * 32), "assets/hitboxs.txt");
 	std::vector<gtd::Tower *>	_towers;
 	std::vector<gtd::Mob *>		mobs;
-	sf::SoundBuffer			sBuffer;
 	sf::Clock			clock;
 	gtd::Game			_game;
 	sf::Font			font;
@@ -70,7 +144,7 @@ void	game_fct()
 	font.loadFromFile("assets/arial.ttf");
 	screen.setFont(font);
 	srand(time(NULL));
-	for (unsigned i = 0; i < 17; i++) {
+	/*for (unsigned i = 0; i < 17; i++) {
 		for (unsigned j = 0; j < 15; j++) {
 			if (_map[j].size() <= i)
 				throw std::out_of_range(std::to_string(i) + " is out of ranges");
@@ -87,7 +161,7 @@ void	game_fct()
 				}
 			}
 		}
-	}
+	}*/
 	while (screen.isOpen()) {
 		if (clock.getElapsedTime().asSeconds() >= 2) {
 			clock.restart();
@@ -145,7 +219,7 @@ int	main()
 	sprites["life"]		= new gtd::Sprite("assets/life.png", sf::Vector2u(16, 16));
 	sprites["money"]	= new gtd::Sprite("assets/money.png", sf::Vector2u(16, 16));
 	sprites["stock"]	= new gtd::Sprite("assets/stock.png", sf::Vector2u(16, 16));
-	logger.info("Starting game->");
+	logger.info("Starting game.");
 	game_fct();
 	logger.info("Deleting ressources.");
 	for (const std::pair<const std::string, gtd::Sprite *> &sprite : sprites)

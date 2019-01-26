@@ -36,6 +36,7 @@ namespace gtd {
 		bool		isSelected();
 		void		select();
 		sf::Vector2f	getPosition();
+		double		getRefund();
 		double		getDistanceTo(const sf::Vector2f &pt);
 		double		getDistanceTo(const sf::Vector2f &pt, const sf::Vector2u &size);
 		virtual void	resetBuffs() = 0;

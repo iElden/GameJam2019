@@ -74,6 +74,15 @@ sf::Vector2f	gtd::Tower::getPosition()
 	return (sf::Vector2f(this->_pos.x, this->_pos.y));
 }
 
+double	gtd::Tower::getRefund()
+{
+	double	cost = this->_cost;
+
+	for (unsigned i = 0; i < this->_level; i++)
+		cost += this->_cost / (i + 1.);
+	return cost / 2;
+}
+
 bool	gtd::Tower::isSelected()
 {
 	return this->_isSelected;
