@@ -51,20 +51,20 @@ bool	gtd::Mob::move(gtd::Map &map)
 	}
 	this->_dir = map[this->_pos.y + (this->_dir == gtd::Map::UP) * 0.9][this->_pos.x + (this->_dir == gtd::Map::LEFT) * 0.9];
 	switch (this->_dir) {
-		case gtd::Map::UP:
-			this->_pos.y -= end;
-			break;
-		case gtd::Map::DOWN:
-			this->_pos.y += end;
-			break;
-		case gtd::Map::LEFT:
-			this->_pos.x -= end;
-			break;
-		case gtd::Map::RIGHT:
-			this->_pos.x += end;
-			break;
-		default:
-			return false;
+	case gtd::Map::UP:
+		this->_pos.y -= end;
+		break;
+	case gtd::Map::DOWN:
+		this->_pos.y += end;
+		break;
+	case gtd::Map::LEFT:
+		this->_pos.x -= end;
+		break;
+	case gtd::Map::RIGHT:
+		this->_pos.x += end;
+		break;
+	default:
+		return false;
 	}
 	return true;
 }
@@ -81,7 +81,7 @@ bool	gtd::Mob::isFull()
 
 sf::Vector2f gtd::Mob::getPos()
 {
-	return  (_pos);
+	return  (this->_pos);
 }
 
 double gtd::Mob::getBarPercentage()
@@ -89,4 +89,9 @@ double gtd::Mob::getBarPercentage()
 	if (this->_maxHealth <= 0)
 		throw std::invalid_argument("Max health can be equal or less than 0.");
 	return (this->_health * 100 / this->_maxHealth);
+}
+
+sf::Vector2u gtd::Mob::getSize()
+{
+	return  (this->_sprite->_size);
 }
