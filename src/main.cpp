@@ -83,7 +83,7 @@ void	game()
 			tower->display(screen);
 			switch (tower->getType()) {
 			case gtd::Tower::Attack:
-				(reinterpret_cast<gtd::AtkTower *>(tower))->fire(mobs);
+				(reinterpret_cast<gtd::AtkTower *>(tower))->fire(mobs, game);
 				break;
 			case gtd::Tower::Production:
 				(reinterpret_cast<gtd::ProdTower *>(tower))->prod(game.stock);
