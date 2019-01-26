@@ -14,7 +14,7 @@ std::map<std::string, gtd::Sprite *>	sprites;
 
 void	spawnMobs(std::vector<gtd::Mob *> &mobs, const sf::Vector2u &start)
 {
-	mobs.emplace_back(new gtd::Mob(100, 0.5, sf::Vector2f(start.x, start.y), sprites["boi"]));
+	mobs.emplace_back(new gtd::Mob(rand() % 30000, rand() % 300 / 200., sf::Vector2f(start.x, start.y), sprites["boi"]));
 }
 
 void	game()
@@ -24,31 +24,22 @@ void	game()
 	std::vector<gtd::Tower *>	towers;
 	std::vector<gtd::Mob *>		mobs;
 	sf::SoundBuffer			sBuffer;
+	sf::Clock			clock;
 
-	spawnMobs(mobs, map.getStart());
-	//spawnMobs(mobs, map.getStart());
-	//spawnMobs(mobs, map.getStart());
 	srand(time(NULL));
 	for (unsigned i = 0; i < 17; i++) {
 		for (unsigned j = 0; j < 15; j++) {
 			if (map[j].size() <= i)
 				throw std::out_of_range(std::to_string(i) + " is out of ranges");
-			if (map[j][i] == gtd::Map::NOTHING) {
-				switch (rand() % 3) {
-				case 0:
-					towers.emplace_back(new gtd::CookingGrandMa(sBuffer, sf::Vector2u(i, j)));
-					break;
-				case 1:
-					towers.emplace_back(new gtd::CakeGrandMa(sBuffer, sf::Vector2u(i, j)));
-						towers[towers.size() - 1]->select();
-					break;
-				case 2:
-					towers.emplace_back(new gtd::TvGrandMa(sBuffer, sf::Vector2u(i, j)));
-				}
-			}
+			if (map[j][i] == gtd::Map::NOTHING)
+				towers.emplace_back(new gtd::CakeGrandMa(sBuffer, sf::Vector2u(i, j)));
 		}
 	}
 	while (screen.isOpen()) {
+		if (clock.getElapsedTime().asSeconds() >= 2) {
+			clock.restart();
+			spawnMobs(mobs, map.getStart());
+		}
 		screen.clear();
 		map.display(screen);
 		for (gtd::Tower *tower : towers) {
@@ -59,8 +50,14 @@ void	game()
 				(reinterpret_cast<gtd::AtkTower *>(tower))->fire(mobs);
 			}
 		}
-		for (gtd::Mob *mob : mobs) {
-			mob->move(map);
+		for (int i = 0; i < mobs.size(); i++) {
+			gtd::Mob *mob = mobs[i];
+
+			if (!mob->move(map) || mob->isFull()) {
+				delete mob;
+				mobs.erase(mobs.begin() + i);
+				i--;
+			}
 			mob->display(screen);
 		}
 		screen.handleEvents();
