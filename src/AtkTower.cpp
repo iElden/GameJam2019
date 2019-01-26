@@ -2,6 +2,8 @@
 // Created by Andgel on 25/01/2019.
 //
 
+#include <cmath>
+#include <iostream>
 #include "AtkTower.hpp"
 
 gtd::AtkTower::AtkTower(const double &attackSpeed,
@@ -35,12 +37,18 @@ void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs)
 			best = allMobs[0];
 			bestDist = this->getDistanceTo(best->getPos());
 			for (gtd::Mob *mob : allMobs) {
-				if (this->getDistanceTo(mob->getPos()) <= bestDist) {
-					bestDist = this->getDistanceTo(mob->getPos());
+				if (this->getDistanceTo(mob->getPos(), mob->getSize()) <= bestDist) {
+					bestDist = this->getDistanceTo(mob->getPos(), mob->getSize());
 					best = mob;
 				}
 			}
 			if (bestDist <= this->_displayedRange) {
+				sf::Vector2f	point1 = sf::Vector2f(this->_pos.x, this->_pos.y);
+				sf::Vector2f	point2 = best->getPos();
+				double          distance = sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2));
+				sf::Vector2f    vec2((point2.x - point1.x) / distance, (point2.y - point1.y) / distance);
+
+				this->_angle = atan2(vec2.y, vec2.x) * 180 / M_PI;
 				best->takeDamage(_damages);
 				this->applyEffects(best);
 			}
