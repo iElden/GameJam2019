@@ -14,6 +14,7 @@ namespace gtd {
 		double	_buffer;
 		double	_attackSpeed;
 		double	_damages;
+		bool	_isAOE;
 
 	public:
 		AtkTower(const double &attackSpeed,
@@ -23,11 +24,13 @@ namespace gtd {
 			 const gtd::Sprite &sprite,
 			 const sf::Vector2u &pos,
 			 const double &displayedRange,
+			 const bool &isAOE,
 			 const std::string &name = "Attack Tower");
 		void	resetBuffs() override;
 		void	buff(const double &as, const double &dmg, const double &range) override;
-		virtual void fire(const std::vector<gtd::Mob *> &allMobs, const float &seconds);
+		virtual void fire(std::vector<gtd::Mob *> &allMobs, const float &seconds);
 		virtual void update() override;
+		virtual	void applyEffects(gtd::Mob *mob) = 0;
 	};
 }
 

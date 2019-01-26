@@ -4,34 +4,55 @@
 
 #include "AtkTower.hpp"
 
-gtd::AtkTower::AtkTower(const double &attackSpeed, const double &damages, const unsigned &cost, const sf::SoundBuffer &sBuffer, const gtd::Sprite &sprite, const sf::Vector2u &pos, const double &displayedRange, const std::string &name)
+gtd::AtkTower::AtkTower(const double &attackSpeed,
+			const double &damages,
+			const unsigned &cost,
+			const sf::SoundBuffer &sBuffer,
+			const gtd::Sprite &sprite,
+			const sf::Vector2u &pos,
+			const double &displayedRange,
+			const bool &isAOE,
+			const std::string &name)
 : Tower(cost, Attack, sBuffer, sprite, pos, displayedRange, name)
 {
-	_attackSpeed = attackSpeed;
-	_damages = damages;
+	this->_attackSpeed = attackSpeed;
+	this->_damages = damages;
+	this->_isAOE = isAOE;
 }
 
 void gtd::AtkTower::update()
 {
-	_buffer += 1;
+	this->_buffer += 1;
 }
 
-void gtd::AtkTower::fire(const std::vector<gtd::Mob *> &allMobs, const float &seconds)
+void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs, const float &seconds)
 {
-	gtd::Mob *tmp = allMobs.front();
-	int i = 0;
+	gtd::Mob	*best;
+	double		bestDist;
 
-	if (_buffer > _attackSpeed) {
-		for (; i != allMobs.size(); i++) {
-			if (allMobs[i]->getPos().x < _pos.x + _displayedRange && allMobs[i]->getPos().y < _pos.y + _displayedRange)
-				tmp = allMobs[i];
-			else if (allMobs[i]->getPos().x == tmp->getPos().x && allMobs[i]->getPos().y < _pos.y + _displayedRange)
-				tmp = allMobs[i];
-			else if (allMobs[i]->getPos().x == tmp->getPos().y && allMobs[i]->getPos().x < _pos.x + _displayedRange)
-				tmp = allMobs[i];
+	if (this->_buffer > this->_attackSpeed && !allMobs.empty()) {
+		if (!this->_isAOE) {
+			best = allMobs[0];
+			bestDist = this->getDistanceTo(best->getPos());
+			for (gtd::Mob *mob : allMobs) {
+				if (this->getDistanceTo(mob->getPos()) <= bestDist) {
+					bestDist = this->getDistanceTo(mob->getPos());
+					best = mob;
+				}
+			}
+			if (bestDist <= this->_displayedRange) {
+				best->takeDamage(_damages);
+				this->applyEffects(best);
+			}
+		} else {
+			for (gtd::Mob *mob : allMobs) {
+				if (this->getDistanceTo(mob->getPos()) <= this->_displayedRange) {
+					mob->takeDamage(this->_damages);
+					this->applyEffects(mob);
+				}
+			}
 		}
-		allMobs[i]->takeDamage(_damages);
-		_buffer = 0;
+		this->_buffer = 0;
 	}
 }
 
