@@ -23,7 +23,7 @@ void gtd::Mob::display(gtd::Screen &screen)
 	this->_sprite->display(screen, sf::Vector2f(this->_pos.x * 32 + this->_sprite->_size.x / 2, this->_pos.y * 32 + this->_sprite->_size.y / 2));
 	this->_sprite->_sprite.setOrigin(0, 0);
 	screen.fillColor(sf::Color(0, 255, 0, 255));
-	screen.displayElement(sf::IntRect(this->_pos.x * 32, this->_pos.y * 32, static_cast<int>(this->getBarPercentage()) / 2 - 16, static_cast<int>(this->getBarPercentage()) / 10 - 5));
+	screen.displayElement(sf::IntRect(this->_pos.x * 32, this->_pos.y * 32, this->getBarPercentage() / 2, 5));
 }
 
 bool	gtd::Mob::move(gtd::Map &map)
@@ -76,7 +76,7 @@ void	gtd::Mob::takeDamage(const double &dmg)
 
 bool	gtd::Mob::isFull()
 {
-	return (this->_health == 0);
+	return (this->_health <= 0);
 }
 
 sf::Vector2f gtd::Mob::getPos()

@@ -26,8 +26,8 @@ void	game()
 	sf::SoundBuffer			sBuffer;
 
 	spawnMobs(mobs, map.getStart());
-	spawnMobs(mobs, map.getStart());
-	spawnMobs(mobs, map.getStart());
+	//spawnMobs(mobs, map.getStart());
+	//spawnMobs(mobs, map.getStart());
 	srand(time(NULL));
 	for (unsigned i = 0; i < 17; i++) {
 		for (unsigned j = 0; j < 15; j++) {
