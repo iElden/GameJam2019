@@ -82,7 +82,7 @@ double	gtd::Tower::getRefund()
 	double	cost = this->_cost;
 
 	for (unsigned i = 0; i < this->_level; i++)
-		cost += this->_cost / (i + 1.);
+		cost += (this->_cost * i) / 10.;
 	return cost / 2;
 }
 
