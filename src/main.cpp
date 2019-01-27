@@ -97,27 +97,19 @@ bool manageWave(int wave, std::vector<gtd::Mob *> &mobs, gtd::Map &map, bool res
 	if (nb_Mobs <= 0)
 		return false;
 	apparition = rand() % 100000 / 100000.0;
-	if (wave > 14 && apparition < - 1.0 * ( 1.0 / (0.001 * wave + 1.0)) + 1.0)
-	{
+	if (wave > 14 && apparition < - 1.0 * ( 1.0 / (0.001 * wave + 1.0)) + 1.0) {
 		spawnMobs(mobs, map.getStart(), base_life * 5, 0.2, sprites["big_boi"]);
 		nb_Mobs--;
-	}
-	else if (wave > 9 && apparition < - 1.0 * ( 1.0 / (0.005 * wave + 1.0)) + 1.0)
-	{
+	} else if (wave > 9 && apparition < - 1.0 * ( 1.0 / (0.005 * wave + 1.0)) + 1.0) {
 		speed_boys = 0.6 + wave / 100.0;
-		if (speed_boys > 1.5)
-		{
-			spawnMobs(mobs, map.getStart(), 250 + (speed_boys - 1.5) * 1000.0, 1.5, sprites["boi"]);
-		}
-		else
-		{
-			spawnMobs(mobs, map.getStart(), 250, speed_boys, sprites["boi"]);
+		if (speed_boys > 1.5) {
+			spawnMobs(mobs, map.getStart(), 250 + (speed_boys - 1.5) * 1000.0, 1.5, rand() % 2 ? (rand() % 2 ? sprites["blondboi"] : sprites["redboi"]) : (rand() % 2 ? sprites["blondgirl"] : sprites["redgirl"]));
+		} else {
+			spawnMobs(mobs, map.getStart(), 250, speed_boys, rand() % 2 ? (rand() % 2 ? sprites["blondboi"] : sprites["redboi"]) : (rand() % 2 ? sprites["blondgirl"] : sprites["redgirl"]));
 		}
 		nb_Mobs--;
-	}
-	else
-	{
-		spawnMobs(mobs, map.getStart(), base_life, 0.6, sprites["boi"]);
+	} else {
+		spawnMobs(mobs, map.getStart(), base_life, 0.6, rand() % 2 ? sprites["boi"] : sprites["girl"]);
 		nb_Mobs--;
 	}
 	return (nb_Mobs > 0);
@@ -226,10 +218,8 @@ void	game_fct()
 				mobs.erase(mobs.begin() + i);
 				i--;
 				game->wonMoney(10);
-			} else {
-				mob->update_animation();
+			} else
 				mob->display(screen);
-			}
 		}
 		displayHUD(screen, _map, _towers);
 		screen.handleEvents(handleClick);
@@ -244,6 +234,11 @@ int	main()
 	sprites["tv"]		= new gtd::Sprite("assets/tv.png", sf::Vector2u(32, 32));
 	sprites["grandma1"]	= new gtd::Sprite("assets/grandma1.png", sf::Vector2u(32, 32));
 	sprites["boi"]		= new gtd::Sprite("assets/boi.png", sf::Vector2u(32, 32));
+	sprites["girl"]		= new gtd::Sprite("assets/girl.png", sf::Vector2u(32, 32));
+	sprites["blondboi"]	= new gtd::Sprite("assets/fastblondboi.png", sf::Vector2u(32, 32));
+	sprites["blondgirl"]	= new gtd::Sprite("assets/fastblondgirl.png", sf::Vector2u(32, 32));
+	sprites["redboi"]	= new gtd::Sprite("assets/fastredboi.png", sf::Vector2u(32, 32));
+	sprites["redgirl"]	= new gtd::Sprite("assets/fastredgirl.png", sf::Vector2u(32, 32));
 	sprites["big_boi"]	= new gtd::Sprite("assets/BIGboi.png", sf::Vector2u(32, 32));
 	sprites["life"]		= new gtd::Sprite("assets/life.png", sf::Vector2u(16, 16));
 	sprites["money"]	= new gtd::Sprite("assets/money.png", sf::Vector2u(16, 16));

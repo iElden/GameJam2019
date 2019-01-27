@@ -26,7 +26,7 @@ namespace gtd {
 			  const double &displayedRange,
 			  const std::string &name);
 			sf::Time _animation1FrameStartTime{ sf::Time::Zero };
-			sf::Time _animation1FrameDuration{ sf::seconds(1.f / 0.5f) }; // 1 frames per second
+			sf::Time _animation1FrameDuration{ sf::seconds(1.f / 2.f) }; // 1 frames per second
 		void update_animation();
 		virtual void	buffTowers(std::vector<gtd::Tower *> &allTowers);
 		void		resetBuffs() override;

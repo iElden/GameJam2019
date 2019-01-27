@@ -2,7 +2,10 @@
 // Created by Andgel on 25/01/2019.
 //
 
+#include "Game.hpp"
 #include "ProdTower.hpp"
+
+extern gtd::Game	*game;
 
 gtd::ProdTower::ProdTower(const double &speed,
 			  const int &value,
@@ -45,6 +48,7 @@ void	gtd::ProdTower::prod(gtd::Food &stock)
 void	gtd::ProdTower::update()
 {
 	this->_buffer += 1;
+	this->update_animation();
 }
 
 void	gtd::ProdTower::resetBuffs()
@@ -72,4 +76,15 @@ void	gtd::ProdTower::upgrade(int level)
 	else
 		this->_prodSpeed /= (1 + level * 20. / 100);
 	this->_level += level;
+}
+
+void gtd::ProdTower::update_animation()
+{
+	sf::Time currentTime = game->clock.getElapsedTime();
+	if (currentTime - _animation1FrameStartTime >= _animation1FrameDuration) {
+		this->_animation += 1;
+		this->_animation %= (this->_sprite->_texture.getSize().x /
+				     this->_sprite->getSize().x);
+		_animation1FrameStartTime = currentTime;
+	}
 }

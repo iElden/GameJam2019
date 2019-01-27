@@ -22,6 +22,7 @@ gtd::Mob::Mob(const double &maxHealth, const double &ms, const sf::Vector2f &pos
 
 void gtd::Mob::display(gtd::Screen &screen)
 {
+	this->update_animation();
 	this->_sprite->_sprite.setOrigin(this->_sprite->_size.x / 2, this->_sprite->_size.y / 2);
 	this->_sprite->_sprite.setRotation((this->_dir - gtd::Map::UP) * (90) - 90);
 	this->_sprite->_sprite.setTextureRect(
@@ -31,7 +32,7 @@ void gtd::Mob::display(gtd::Screen &screen)
 	this->_sprite->display(screen, sf::Vector2f(this->_pos.x * 32 + this->_sprite->_size.x / 2, this->_pos.y * 32 + this->_sprite->_size.y / 2));
 	this->_sprite->_sprite.setOrigin(0, 0);
 	screen.fillColor(sf::Color(0, 255, 0, 255));
-	screen.displayElement(sf::IntRect(this->_pos.x * 32, this->_pos.y * 32, this->getBarPercentage() / 2, 5));
+	screen.displayElement(sf::IntRect(this->_pos.x * 32, this->_pos.y * 32, this->getBarPercentage() * 32 / 100, 5));
 }
 
 bool	gtd::Mob::move(gtd::Map &map)

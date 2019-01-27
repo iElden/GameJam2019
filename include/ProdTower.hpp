@@ -26,6 +26,9 @@ namespace gtd {
 			  const sf::Vector2u &pos,
 			  const double &displayedRange,
 			  const std::string &name = "Prod Tower");
+		sf::Time _animation1FrameStartTime{ sf::Time::Zero };
+		sf::Time _animation1FrameDuration{ sf::seconds(1 / 15.f) }; // 1 frames per second
+		void update_animation();
 		void		resetBuffs() override;
 		void		buff(const double &as, const double &dmg, const double &range) override;
 		void		upgrade(int level) override;

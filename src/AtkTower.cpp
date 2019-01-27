@@ -27,10 +27,22 @@ gtd::AtkTower::AtkTower(const double &attackSpeed,
 
 void gtd::AtkTower::update()
 {
+	this->_animation1FrameDuration = sf::Time(
+		sf::seconds(
+			float(
+				1 / (
+					this->_attackSpeed * (
+						float(this->_sprite->_texture.getSize().x) / this->_sprite->getSize().x
+					)
+				)
+			)
+		)
+	);
 	this->_buffer += 1;
 	if (this->_isAttacking) {
 		this->update_animation();
 	} else {
+		_animation1FrameStartTime = game->clock.getElapsedTime();
 		this->_animation = 0;
 	}
 }
@@ -40,18 +52,9 @@ void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs, gtd::Game &game)
 	gtd::Mob	*best;
 	double		bestDist;
 
+	if (this->_buffer > 60. / this->_attackSpeed)
+		this->_isAttacking = false;
 	if (this->_buffer > 60. / this->_attackSpeed && !allMobs.empty()) {
-        this->_isAttacking = false;
-		if (game.stock.stock[gtd::Food::Any] >= 1.)
-			game.stock.stock[gtd::Food::Any] -= 1;
-		else if (game.stock.stock[gtd::Food::GlutenFree] >= 1.)
-			game.stock.stock[gtd::Food::GlutenFree] -= 1.;
-		else if (game.stock.stock[gtd::Food::Vegan] >= 1.)
-			game.stock.stock[gtd::Food::Vegan] -= 1.;
-		else if (game.stock.stock[gtd::Food::Carnivore] >= 1.)
-			game.stock.stock[gtd::Food::Carnivore] -= 1.;
-		else
-			return;
 		if (!this->_isAOE) {
 			best = allMobs[0];
 			bestDist = this->getDistanceTo(best->getPos());
@@ -67,18 +70,42 @@ void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs, gtd::Game &game)
 				double          distance = sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2));
 				sf::Vector2f    vec2((point2.x - point1.x) / distance, (point2.y - point1.y) / distance);
 
+				if (game.stock.stock[gtd::Food::Any] >= 1.)
+					game.stock.stock[gtd::Food::Any] -= 1;
+				else if (game.stock.stock[gtd::Food::GlutenFree] >= 1.)
+					game.stock.stock[gtd::Food::GlutenFree] -= 1.;
+				else if (game.stock.stock[gtd::Food::Vegan] >= 1.)
+					game.stock.stock[gtd::Food::Vegan] -= 1.;
+				else if (game.stock.stock[gtd::Food::Carnivore] >= 1.)
+					game.stock.stock[gtd::Food::Carnivore] -= 1.;
+				else
+					return;
 				this->_isAttacking = true;
 				this->_angle = atan2(vec2.y, vec2.x) * 180 / M_PI;
 				best->takeDamage(_damages);
 				this->applyEffects(best);
 			}
 		} else {
+			if (game.stock.stock[gtd::Food::Any] < 1 && game.stock.stock[gtd::Food::GlutenFree] < 1 && game.stock.stock[gtd::Food::Vegan] < 1 && game.stock.stock[gtd::Food::Carnivore])
+				return;
 			for (gtd::Mob *mob : allMobs) {
 				if (this->getDistanceTo(mob->getPos()) <= this->_displayedRange) {
 					mob->takeDamage(this->_damages);
 					this->applyEffects(mob);
-                    this->_isAttacking = true;
+					this->_isAttacking = true;
 				}
+			}
+			if (this->_isAttacking) {
+				if (game.stock.stock[gtd::Food::Any] >= 1.)
+					game.stock.stock[gtd::Food::Any] -= 1;
+				else if (game.stock.stock[gtd::Food::GlutenFree] >= 1.)
+					game.stock.stock[gtd::Food::GlutenFree] -= 1.;
+				else if (game.stock.stock[gtd::Food::Vegan] >= 1.)
+					game.stock.stock[gtd::Food::Vegan] -= 1.;
+				else if (game.stock.stock[gtd::Food::Carnivore] >= 1.)
+					game.stock.stock[gtd::Food::Carnivore] -= 1.;
+				else
+					return;
 			}
 		}
 		this->_buffer = 0;

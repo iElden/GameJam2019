@@ -65,7 +65,7 @@ void gtd::BuffTower::update_animation()
 {
         sf::Time currentTime = game->clock.getElapsedTime();
         if (currentTime - _animation1FrameStartTime >= _animation1FrameDuration) {
-                this->_animation += 1;
+                this->_animation = rand();
                 this->_animation %= (this->_sprite->_texture.getSize().x /
                                      this->_sprite->getSize().x);
                 _animation1FrameStartTime = currentTime;
