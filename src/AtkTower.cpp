@@ -91,7 +91,7 @@ void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs, gtd::Game &game)
 				this->_sound.play();
 			}
 		} else {
-			if (game.stock.stock[gtd::Food::Any] < 1 && game.stock.stock[gtd::Food::GlutenFree] < 1 && game.stock.stock[gtd::Food::Vegan] < 1 && game.stock.stock[gtd::Food::Carnivore])
+			if (game.stock.stock[gtd::Food::Any] < 1 && game.stock.stock[gtd::Food::GlutenFree] < 1 && game.stock.stock[gtd::Food::Vegan] < 1 && game.stock.stock[gtd::Food::Carnivore] < 1)
 				return;
 			for (gtd::Mob *mob : allMobs) {
 				if (this->getDistanceTo(mob->getPos()) <= this->_displayedRange) {
