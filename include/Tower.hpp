@@ -58,7 +58,6 @@ namespace gtd {
 
 	private:
 		sf::SoundBuffer	_sBuff;
-		sf::Sound	_sound;
 		Type		_type;
 		std::string	_name;
 		bool		_isSelected = false;

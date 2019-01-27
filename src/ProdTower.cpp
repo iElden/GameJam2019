@@ -6,6 +6,8 @@
 #include "ProdTower.hpp"
 
 extern gtd::Game	*game;
+extern sf::Sound				sound;
+extern std::map<std::string, sf::SoundBuffer>	sBuffers;
 
 gtd::ProdTower::ProdTower(const double &speed,
 			  const int &value,
@@ -76,6 +78,8 @@ void	gtd::ProdTower::upgrade(int level)
 	else
 		this->_prodSpeed /= (1 + level * 20. / 100);
 	this->_level += level;
+	sound.setBuffer(sBuffers["upgrade"]);
+	sound.play();
 }
 
 void gtd::ProdTower::update_animation()

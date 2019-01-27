@@ -7,7 +7,9 @@
 #include "AtkTower.hpp"
 #include "Game.hpp"
 
-extern gtd::Game *game;
+extern gtd::Game				*game;
+extern sf::Sound				sound;
+extern std::map<std::string, sf::SoundBuffer>	sBuffers;
 
 gtd::AtkTower::AtkTower(const double &attackSpeed,
 			const double &damages,
@@ -149,6 +151,8 @@ void	gtd::AtkTower::upgrade(int level)
 		this->_damages /= (1 + 0.15 * level);
 		this->_attackSpeed /= (1 + 0.20 * level);
 	}
+	sound.setBuffer(sBuffers["upgrade"]);
+	sound.play();
 	this->_level += level;
 }
 

@@ -19,7 +19,8 @@ gtd::Map				*map;
 std::vector<gtd::Tower *>		*towers;
 int					selected = -1;
 sf::Vector2u				selectedBox(0, 0);
-sf::SoundBuffer				sBuffer;
+std::map<std::string, sf::SoundBuffer>	sBuffers;
+sf::Sound				sound;
 
 int	getTowerAtPos(int x, int y)
 {
@@ -54,6 +55,8 @@ void	handleClick(gtd::Screen &screen, sf::Event &event)
 			delete (*towers)[selected];
 			(*towers).erase((*towers).begin() + selected);
 			selected = -1;
+			sound.setBuffer(sBuffers["sell"]);
+			sound.play();
 		} else if (position.x > 544 && position.y > 365 && position.y <= 448&& selected >= 0) {
 			if ((*towers)[selected]->getUpgradePrice() <= game->getMoney()) {
 				game->loseMoney((*towers)[selected]->getUpgradePrice());
@@ -64,23 +67,23 @@ void	handleClick(gtd::Screen &screen, sf::Event &event)
 		} else if (selected == -2 && position.x >= 546) {
 			if (position.y >= 114 && position.y < 164) {
 				if (position.x < 600 && game->pay(gtd::CookingGrandMa::cost)) {
-					towers->emplace_back(new gtd::CookingGrandMa(sBuffer, selectedBox));
+					towers->emplace_back(new gtd::CookingGrandMa(sBuffers["cooking"], selectedBox));
 					selected = -1;
 				} else if (position.x >= 600 && game->pay(gtd::TvGrandMa::cost)) {
-					towers->emplace_back(new gtd::TvGrandMa(sBuffer, selectedBox));
+					towers->emplace_back(new gtd::TvGrandMa(sBuffers["tv"], selectedBox));
 					selected = -1;
 				}
 			} else if (position.y >= 164 && position.y < 214) {
 				if (position.x < 600 && game->pay(gtd::CakeGrandMa::cost)) {
-					towers->emplace_back(new gtd::CakeGrandMa(sBuffer, selectedBox));
+					towers->emplace_back(new gtd::CakeGrandMa(sBuffers["cake"], selectedBox));
 					selected = -1;
 				} else if (position.x >= 600 && position.x < 650 && game->pay(gtd::CaramelGrandMa::cost)) {
-					towers->emplace_back(new gtd::CaramelGrandMa(sBuffer, selectedBox));
+					towers->emplace_back(new gtd::CaramelGrandMa(sBuffers["caramel"], selectedBox));
 					selected = -1;
 				}
 			} else if (position.y >= 214 && position.y < 264) {
 				if (position.x < 600 && game->pay(gtd::SpeakingGrandMa::cost)) {
-					towers->emplace_back(new gtd::SpeakingGrandMa(sBuffer, selectedBox));
+					towers->emplace_back(new gtd::SpeakingGrandMa(sBuffers["blabla"], selectedBox));
 					selected = -1;
 				} else if (position.x >= 600 && position.x < 650 && game->pay(gtd::CaramelGrandMa::cost)) {
 					//towers->emplace_back(new gtd::CaramelGrandMa(sBuffer, selectedBox));
@@ -284,11 +287,8 @@ void	game_fct()
 	}
 }
 
-int	main()
+void	loadSprites()
 {
-	sf::Music	music;
-
-	logger.info("Loading assets.");
 	sprites["cooking"]	= new gtd::Sprite("assets/cooking.png", sf::Vector2u(32, 32));
 	sprites["tv"]		= new gtd::Sprite("assets/tv.png", sf::Vector2u(32, 32));
 	sprites["grandma1"]	= new gtd::Sprite("assets/grandma1.png", sf::Vector2u(32, 32));
@@ -304,10 +304,39 @@ int	main()
 	sprites["life"]		= new gtd::Sprite("assets/life.png", sf::Vector2u(16, 16));
 	sprites["money"]	= new gtd::Sprite("assets/money.png", sf::Vector2u(16, 16));
 	sprites["stock"]	= new gtd::Sprite("assets/stock.png", sf::Vector2u(16, 16));
+}
+
+void	loadSounds()
+{
+	sBuffers["blablabla"].loadFromFile("assets/blablabla.ogg");
+	sBuffers["cooking"].loadFromFile("assets/cooking.ogg");
+	sBuffers["upgrade"].loadFromFile("assets/upgrade.ogg");
+	sBuffers["caramel"].loadFromFile("assets/caramel.ogg");
+	sBuffers["sell"].loadFromFile("assets/sell.ogg");
+	sBuffers["cake"].loadFromFile("assets/cake.ogg");
+	sBuffers["tv"].loadFromFile("assets/tv.ogg");
+}
+
+void	loadAssets()
+{
+	logger.info("Loading sprites");
+	loadSprites();
+
+	logger.info("Loading sounds");
+	loadSounds();
+}
+
+int	main()
+{
+	sf::Music	music;
+
+	logger.info("Loading assets.");
+	loadAssets();
 	music.openFromFile("assets/music.ogg");
 	logger.info("Starting game.");
 	music.setLoop(true);
 	music.play();
+	music.setVolume(10);
 	game_fct();
 	logger.info("Deleting ressources.");
 	for (const std::pair<const std::string, gtd::Sprite *> &sprite : sprites)

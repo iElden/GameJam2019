@@ -7,6 +7,7 @@
 #include "Logger.hpp"
 #include "Tower.hpp"
 
+extern sf::Sound	sound;
 gtd::Tower::Tower(const unsigned &cost,
 		  const Type &type,
 		  const sf::SoundBuffer &sBuffer,
@@ -22,7 +23,8 @@ gtd::Tower::Tower(const unsigned &cost,
 	_name(name),
 	_cost(cost)
 {
-	this->_sound.setBuffer(this->_sBuff);
+	sound.setBuffer(this->_sBuff);
+	sound.play();
 	logger.info("Added new tower \"" + this->_name + "\"");
 }
 

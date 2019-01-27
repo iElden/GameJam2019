@@ -6,6 +6,8 @@
 #include "Game.hpp"
 
 extern gtd::Game *game;
+extern sf::Sound				sound;
+extern std::map<std::string, sf::SoundBuffer>	sBuffers;
 
 gtd::BuffTower::BuffTower(const double &asM,
                           const double &dmgM,
@@ -54,6 +56,8 @@ void	gtd::BuffTower::upgrade(int level)
         }
         this->_displayedRange += 0.5 * level;
         this->_level += level;
+	sound.setBuffer(sBuffers["upgrade"]);
+	sound.play();
 }
 
 void gtd::BuffTower::update()
