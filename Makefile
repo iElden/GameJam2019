@@ -11,10 +11,11 @@ SRC = AtkTower.cpp  	\
     Sprite.cpp      	\
     Tower.cpp       	\
     CookingGrandMa.cpp	\
-    CakeGrandGa.cpp		\
+    CakeGrandMa.cpp		\
     TvGrandMa.cpp		\
     Game.cpp    		\
-    CaramelGrandGa.cpp
+    CaramelGrandMa.cpp	\
+	SpeakingGrandMa.cpp
 
 OBJ =	$(SRC:%.cpp=src/%.o)
 

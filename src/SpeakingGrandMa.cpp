@@ -12,5 +12,5 @@ gtd::SpeakingGrandMa::SpeakingGrandMa(const sf::SoundBuffer &sBuffer, const sf::
 
 void gtd::SpeakingGrandMa::applyEffects(gtd::Mob *mob)
 {
-	mob->reduceSpeed(0, 2);
+	mob->reduceSpeed(0, 0.5);
 }

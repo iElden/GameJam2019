@@ -83,12 +83,12 @@ void	handleClick(gtd::Screen &screen, sf::Event &event)
 				}
 			} else if (position.y >= 214 && position.y < 264) {
 				if (position.x < 600 && game->pay(gtd::SpeakingGrandMa::cost)) {
-					towers->emplace_back(new gtd::SpeakingGrandMa(sBuffers["speak"], selectedBox, sBuffers["blabla"]));
+					towers->emplace_back(new gtd::SpeakingGrandMa(sBuffers["speak"], selectedBox, sBuffers["blablabla"]));
 					selected = -1;
-				} else if (position.x >= 600 && position.x < 650 && game->pay(gtd::CaramelGrandMa::cost)) {
+				}/* else if (position.x >= 600 && position.x < 650 && game->pay(gtd::CaramelGrandMa::cost)) {
 					//towers->emplace_back(new gtd::CaramelGrandMa(sBuffer, selectedBox));
 					//selected = -1;
-				}
+				}*/
 			}
 		} else {
 			if (selected >= 0)
