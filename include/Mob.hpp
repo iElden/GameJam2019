@@ -36,7 +36,7 @@ namespace gtd {
 		double		_health;
 		double		_maxHealth;
 		double		_slowDuration;
-		double		_speedMultpilier;
+		double		_speedMultpilier = 1;
 	};
 }
 

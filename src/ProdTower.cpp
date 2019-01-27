@@ -12,12 +12,13 @@ extern std::map<std::string, sf::SoundBuffer>	sBuffers;
 gtd::ProdTower::ProdTower(const double &speed,
 			  const int &value,
 			  const unsigned &cost,
+			  const sf::SoundBuffer &spawn,
 			  const sf::SoundBuffer &sBuffer,
 			  gtd::Sprite *sprite,
 			  const sf::Vector2u &pos,
 			  const double &displayedRange,
 			  const std::string &name) :
-	gtd::Tower(cost, gtd::Tower::Production, sBuffer, sprite, pos, displayedRange, name),
+	gtd::Tower(cost, gtd::Tower::Production, spawn, sBuffer, sprite, pos, displayedRange, name),
 	_prodSpeed(speed),
 	_value(value)
 {

@@ -23,6 +23,7 @@ namespace gtd {
 
 		Tower(const unsigned &cost,
 		      const Type &type,
+		      const sf::SoundBuffer &spawn,
 		      const sf::SoundBuffer &sBuffer,
 		      gtd::Sprite *sprite,
 		      const sf::Vector2u &pos,
@@ -55,6 +56,7 @@ namespace gtd {
 		double		_dmgBuff = 1;
 		double		_rangeBuff = 1;
 		gtd::Sprite	*_sprite;
+		sf::Sound	_sound;
 
 	private:
 		sf::SoundBuffer	_sBuff;

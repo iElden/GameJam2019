@@ -14,13 +14,14 @@ extern std::map<std::string, sf::SoundBuffer>	sBuffers;
 gtd::AtkTower::AtkTower(const double &attackSpeed,
 			const double &damages,
 			const unsigned &cost,
+			const sf::SoundBuffer &spawn,
 			const sf::SoundBuffer &sBuffer,
 			gtd::Sprite *sprite,
 			const sf::Vector2u &pos,
 			const double &displayedRange,
 			const bool &isAOE,
 			const std::string &name)
-: Tower(cost, Attack, sBuffer, sprite, pos, displayedRange, name)
+: Tower(cost, Attack, spawn, sBuffer, sprite, pos, displayedRange, name)
 {
 	this->_attackSpeed = attackSpeed;
 	this->_buffer = 60. / this->_attackSpeed;
@@ -87,6 +88,7 @@ void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs, gtd::Game &game)
 				this->_angle = atan2(vec2.y, vec2.x) * 180 / M_PI;
 				best->takeDamage(_damages);
 				this->applyEffects(best);
+				this->_sound.play();
 			}
 		} else {
 			if (game.stock.stock[gtd::Food::Any] < 1 && game.stock.stock[gtd::Food::GlutenFree] < 1 && game.stock.stock[gtd::Food::Vegan] < 1 && game.stock.stock[gtd::Food::Carnivore])
@@ -115,6 +117,7 @@ void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs, gtd::Game &game)
 					game.stock.stock[gtd::Food::Carnivore] -= 1.;
 				else
 					return;
+				this->_sound.play();
 			}
 		}
 		this->_buffer = 0;

@@ -67,23 +67,23 @@ void	handleClick(gtd::Screen &screen, sf::Event &event)
 		} else if (selected == -2 && position.x >= 546) {
 			if (position.y >= 114 && position.y < 164) {
 				if (position.x < 600 && game->pay(gtd::CookingGrandMa::cost)) {
-					towers->emplace_back(new gtd::CookingGrandMa(sBuffers["cooking"], selectedBox));
+					towers->emplace_back(new gtd::CookingGrandMa({}, selectedBox, sBuffers["cooking"]));
 					selected = -1;
 				} else if (position.x >= 600 && game->pay(gtd::TvGrandMa::cost)) {
-					towers->emplace_back(new gtd::TvGrandMa(sBuffers["tv"], selectedBox));
+					towers->emplace_back(new gtd::TvGrandMa({}, selectedBox, sBuffers["tv"]));
 					selected = -1;
 				}
 			} else if (position.y >= 164 && position.y < 214) {
 				if (position.x < 600 && game->pay(gtd::CakeGrandMa::cost)) {
-					towers->emplace_back(new gtd::CakeGrandMa(sBuffers["cake"], selectedBox));
+					towers->emplace_back(new gtd::CakeGrandMa(sBuffers["throw"], selectedBox, sBuffers["cake"]));
 					selected = -1;
 				} else if (position.x >= 600 && position.x < 650 && game->pay(gtd::CaramelGrandMa::cost)) {
-					towers->emplace_back(new gtd::CaramelGrandMa(sBuffers["caramel"], selectedBox));
+					towers->emplace_back(new gtd::CaramelGrandMa(sBuffers["throw"], selectedBox, sBuffers["caramel"]));
 					selected = -1;
 				}
 			} else if (position.y >= 214 && position.y < 264) {
 				if (position.x < 600 && game->pay(gtd::SpeakingGrandMa::cost)) {
-					towers->emplace_back(new gtd::SpeakingGrandMa(sBuffers["blabla"], selectedBox));
+					towers->emplace_back(new gtd::SpeakingGrandMa(sBuffers["speak"], selectedBox, sBuffers["blabla"]));
 					selected = -1;
 				} else if (position.x >= 600 && position.x < 650 && game->pay(gtd::CaramelGrandMa::cost)) {
 					//towers->emplace_back(new gtd::CaramelGrandMa(sBuffer, selectedBox));
@@ -143,9 +143,9 @@ bool manageWave(int wave, std::vector<gtd::Mob *> &mobs, gtd::Map &map, bool res
 
 void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &towers)
 {
-    (void) map;
+	(void) map;
 	screen.fillColor(sf::Color(255, 255, 0));
-	screen.displayElement(sf::IntRect(544, 0, 32 * 3, 480));
+	screen.displayElement(sf::IntRect(544, 0, 150, 480));
 	screen.textSize(15);
 	sprites["life"]->display(screen, sf::Vector2f(550, 4));
 	screen.fillColor(sf::Color(0, 0, 0));
@@ -166,7 +166,7 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 		screen.displayElement(std::to_string(static_cast<int>(towers[selected]->getRefund())) + "$", sf::Vector2f(580, 430));
 
 		screen.fillColor(sf::Color(0, 0, 0));
-		screen.displayElement("Level: " + std::to_string(towers[selected]->getLevel()), sf::Vector2f(545, 335));
+		screen.displayElement("Level: " + std::to_string(towers[selected]->getLevel()), sf::Vector2f(545, 345));
 		screen.fillColor(sf::Color(255, 0, 0));
 
 		/*screen.fillColor(sf::Color(0, 0, 0));
@@ -179,7 +179,7 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 
 		screen.fillColor(sf::Color(0, 0, 0));
 		screen.displayElement("Attack Speed: " + std::to_string(towers[selected]->getLevel()), sf::Vector2f(545, 335));
-		screen.fillColor(sf::Color(255, 0, 0))*/;
+		screen.fillColor(sf::Color(255, 0, 0));*/
 
 		screen.fillColor(sf::Color(0, 100, 200));
 		screen.displayElement(sf::IntRect(544, 375, 100, 40));
@@ -190,8 +190,6 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 	if (selected == -2) {
 		screen.fillColor(sf::Color(0, 255, 0, 120));
 		screen.displayElement(sf::IntRect(selectedBox.x * 32, selectedBox.y * 32, 32, 32));
-		screen.fillColor(sf::Color(120, 120, 120));
-		screen.displayElement(sf::IntRect(546, 115, 800, 160));
 
 		screen.fillColor(gtd::CookingGrandMa::cost <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
 		sprites["cooking"]->_sprite.setRotation(90);
@@ -225,7 +223,7 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 void	game_fct()
 {
 	gtd::Screen			screen;
-	gtd::Map			_map("assets/map.png", sf::Vector2u(17 * 32, 15 * 32), "assets/hitboxs.txt");
+	gtd::Map			_map("assets/map.png", sf::Vector2u(640, 480), "assets/hitboxs.txt");
 	std::vector<gtd::Tower *>	_towers;
 	std::vector<gtd::Mob *>		mobs;
 	sf::Clock			clock;
@@ -293,7 +291,7 @@ void	loadSprites()
 	sprites["tv"]		= new gtd::Sprite("assets/tv.png", sf::Vector2u(32, 32));
 	sprites["grandma1"]	= new gtd::Sprite("assets/grandma1.png", sf::Vector2u(32, 32));
 	sprites["grandma2"]	= new gtd::Sprite("assets/grandma2.png", sf::Vector2u(32, 32));
-	sprites["grandma3"]	= new gtd::Sprite("assets/grandma2.png", sf::Vector2u(32, 32));
+	sprites["grandma3"]	= new gtd::Sprite("assets/grandma3.png", sf::Vector2u(32, 32));
 	sprites["boi"]		= new gtd::Sprite("assets/boi.png", sf::Vector2u(32, 32));
 	sprites["girl"]		= new gtd::Sprite("assets/girl.png", sf::Vector2u(32, 32));
 	sprites["blondboi"]	= new gtd::Sprite("assets/fastblondboi.png", sf::Vector2u(32, 32));
@@ -312,6 +310,8 @@ void	loadSounds()
 	sBuffers["cooking"].loadFromFile("assets/cooking.ogg");
 	sBuffers["upgrade"].loadFromFile("assets/upgrade.ogg");
 	sBuffers["caramel"].loadFromFile("assets/caramel.ogg");
+	sBuffers["throw"].loadFromFile("assets/throw.ogg");
+	sBuffers["speak"].loadFromFile("assets/speak.ogg");
 	sBuffers["sell"].loadFromFile("assets/sell.ogg");
 	sBuffers["cake"].loadFromFile("assets/cake.ogg");
 	sBuffers["tv"].loadFromFile("assets/tv.ogg");
@@ -336,7 +336,7 @@ int	main()
 	logger.info("Starting game.");
 	music.setLoop(true);
 	music.play();
-	music.setVolume(10);
+	music.setVolume(5);
 	game_fct();
 	logger.info("Deleting ressources.");
 	for (const std::pair<const std::string, gtd::Sprite *> &sprite : sprites)

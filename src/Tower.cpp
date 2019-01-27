@@ -10,6 +10,7 @@
 extern sf::Sound	sound;
 gtd::Tower::Tower(const unsigned &cost,
 		  const Type &type,
+		  const sf::SoundBuffer &spawn,
 		  const sf::SoundBuffer &sBuffer,
 		  gtd::Sprite *sprite,
 		  const sf::Vector2u &pos,
@@ -23,8 +24,9 @@ gtd::Tower::Tower(const unsigned &cost,
 	_name(name),
 	_cost(cost)
 {
-	sound.setBuffer(this->_sBuff);
+	sound.setBuffer(spawn);
 	sound.play();
+	this->_sound.setBuffer(this->_sBuff);
 	logger.info("Added new tower \"" + this->_name + "\"");
 }
 

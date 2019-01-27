@@ -24,6 +24,7 @@ namespace gtd {
 		AtkTower(const double &attackSpeed,
 			 const double &damages,
 			 const unsigned &cost,
+			 const sf::SoundBuffer &spawn,
 			 const sf::SoundBuffer &sBuffer,
 			 gtd::Sprite *sprite,
 			 const sf::Vector2u &pos,

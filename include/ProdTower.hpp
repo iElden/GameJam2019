@@ -21,6 +21,7 @@ namespace gtd {
 		ProdTower(const double &speed,
 			  const int &value,
 			  const unsigned &cost,
+			  const sf::SoundBuffer &spawn,
 			  const sf::SoundBuffer &sBuffer,
 			  gtd::Sprite *sprite,
 			  const sf::Vector2u &pos,

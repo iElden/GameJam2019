@@ -10,7 +10,7 @@
 namespace gtd {
 	class SpeakingGrandMa : public AtkTower {
 	public:
-		SpeakingGrandMa(const sf::SoundBuffer &sBuffer, const sf::Vector2u &pos);
+		SpeakingGrandMa(const sf::SoundBuffer &sBuffer, const sf::Vector2u &pos, const sf::SoundBuffer &spawn);
 		void applyEffects(gtd::Mob *mob) override;
 		static const int cost = 500;
 	};

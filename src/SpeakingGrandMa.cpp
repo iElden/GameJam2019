@@ -5,8 +5,8 @@
 #include "Sprite.hpp"
 #include "SpeakingGrandMa.hpp"
 
-gtd::SpeakingGrandMa::SpeakingGrandMa(const sf::SoundBuffer &sBuffer, const sf::Vector2u &pos)
-:	AtkTower(1. / 3, 0, this->cost, sBuffer, sprites["grandma3"], pos, 3.0, true, "Cake Grand-ma")
+gtd::SpeakingGrandMa::SpeakingGrandMa(const sf::SoundBuffer &sBuffer, const sf::Vector2u &pos, const sf::SoundBuffer &spawn)
+:	AtkTower(1. / 3, 0, this->cost, spawn, sBuffer, sprites["grandma3"], pos, 3.0, true, "Cake Grand-ma")
 {
 }
 

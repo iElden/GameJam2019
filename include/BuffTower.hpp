@@ -20,6 +20,7 @@ namespace gtd {
 			  const double &dmgM,
 			  const double &rangeM,
 			  const unsigned &cost,
+			  const sf::SoundBuffer &spawn,
 			  const sf::SoundBuffer &sBuffer,
 			  gtd::Sprite *sprite,
 			  const sf::Vector2u &pos,

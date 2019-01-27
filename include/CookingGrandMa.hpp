@@ -10,7 +10,7 @@
 namespace gtd {
 	class CookingGrandMa : public ProdTower {
 	public:
-		CookingGrandMa(const sf::SoundBuffer &sBuffer, const sf::Vector2u &pos);
+		CookingGrandMa(const sf::SoundBuffer &sBuffer, const sf::Vector2u &pos, const sf::SoundBuffer &spawn);
 		static const int cost = 250;
 	};
 }

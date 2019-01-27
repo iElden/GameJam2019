@@ -9,7 +9,7 @@
 namespace gtd {
 	class CakeGrandMa : public AtkTower {
 	public:
-		CakeGrandMa(const sf::SoundBuffer &sBuffer, const sf::Vector2u &pos);
+		CakeGrandMa(const sf::SoundBuffer &sBuffer, const sf::Vector2u &pos, const sf::SoundBuffer &spawn);
 		void applyEffects(gtd::Mob *mob) override;
 		static const int cost = 450;
 	};
