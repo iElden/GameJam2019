@@ -64,7 +64,7 @@ void	handleClick(gtd::Screen &screen, sf::Event &event)
 				(*towers)[selected]->select();
 				selected = -1;
 			}
-		} else if (selected == -2 && position.x >= 546) {
+		} else if (selected == -2) {
 			if (position.y >= 114 && position.y < 164) {
 				if (position.x < 600 && game->pay(gtd::CookingGrandMa::cost)) {
 					towers->emplace_back(new gtd::CookingGrandMa({}, selectedBox, sBuffers["cooking"]));
@@ -85,10 +85,7 @@ void	handleClick(gtd::Screen &screen, sf::Event &event)
 				if (position.x < 600 && game->pay(gtd::SpeakingGrandMa::cost)) {
 					towers->emplace_back(new gtd::SpeakingGrandMa(sBuffers["speak"], selectedBox, sBuffers["blablabla"]));
 					selected = -1;
-				}/* else if (position.x >= 600 && position.x < 650 && game->pay(gtd::CaramelGrandMa::cost)) {
-					//towers->emplace_back(new gtd::CaramelGrandMa(sBuffer, selectedBox));
-					//selected = -1;
-				}*/
+				}
 			}
 		} else {
 			if (selected >= 0)
@@ -144,8 +141,6 @@ bool manageWave(int wave, std::vector<gtd::Mob *> &mobs, gtd::Map &map, bool res
 void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &towers)
 {
 	(void) map;
-	screen.fillColor(sf::Color(255, 255, 0));
-	screen.displayElement(sf::IntRect(544, 0, 150, 480));
 	screen.textSize(15);
 	sprites["life"]->display(screen, sf::Vector2f(550, 4));
 	screen.fillColor(sf::Color(0, 0, 0));
@@ -193,28 +188,28 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 
 		screen.fillColor(gtd::CookingGrandMa::cost <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
 		sprites["cooking"]->_sprite.setRotation(90);
-		screen.displayElement(sprites["cooking"]->_sprite, sf::Vector2f(590, 120));
-		screen.displayElement(std::to_string(gtd::CookingGrandMa::cost) + "$", sf::Vector2f(564, 150));
+		screen.displayElement(sprites["cooking"]->_sprite, sf::Vector2f(580, 120));
+		screen.displayElement(std::to_string(gtd::CookingGrandMa::cost) + "$", sf::Vector2f(552, 150));
 
 		screen.fillColor(gtd::TvGrandMa::cost <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
 		sprites["tv"]->_sprite.setRotation(90);
 		screen.displayElement(sprites["tv"]->_sprite, sf::Vector2f(630, 120));
-		screen.displayElement(std::to_string(gtd::TvGrandMa::cost) + "$", sf::Vector2f(604, 150));
+		screen.displayElement(std::to_string(gtd::TvGrandMa::cost) + "$", sf::Vector2f(602, 150));
 
 		screen.fillColor(gtd::CakeGrandMa::cost <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
 		sprites["grandma1"]->_sprite.setRotation(90);
-		screen.displayElement(sprites["grandma1"]->_sprite, sf::Vector2f(590, 170));
-		screen.displayElement(std::to_string(gtd::CakeGrandMa::cost) + "$", sf::Vector2f(564, 200));
+		screen.displayElement(sprites["grandma1"]->_sprite, sf::Vector2f(580, 170));
+		screen.displayElement(std::to_string(gtd::CakeGrandMa::cost) + "$", sf::Vector2f(552, 200));
 
 		screen.fillColor(gtd::CaramelGrandMa::cost <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
 		sprites["grandma2"]->_sprite.setRotation(90);
 		screen.displayElement(sprites["grandma2"]->_sprite, sf::Vector2f(630, 170));
-		screen.displayElement(std::to_string(gtd::CaramelGrandMa::cost) + "$", sf::Vector2f(604, 200));
+		screen.displayElement(std::to_string(gtd::CaramelGrandMa::cost) + "$", sf::Vector2f(602, 200));
 
 		screen.fillColor(gtd::SpeakingGrandMa::cost <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
 		sprites["grandma3"]->_sprite.setRotation(90);
-		screen.displayElement(sprites["grandma3"]->_sprite, sf::Vector2f(590, 220));
-		screen.displayElement(std::to_string(gtd::SpeakingGrandMa::cost) + "$", sf::Vector2f(564, 250));
+		screen.displayElement(sprites["grandma3"]->_sprite, sf::Vector2f(580, 220));
+		screen.displayElement(std::to_string(gtd::SpeakingGrandMa::cost) + "$", sf::Vector2f(552, 250));
 	}
 	screen.fillColor(sf::Color(0, 0, 0));
 	screen.displayElement("Wave " + std::to_string(game->getWave()), sf::Vector2f(550, 450));

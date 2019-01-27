@@ -12,10 +12,10 @@ namespace gtd {
 	struct Food {
 		enum Type {
 			Any,
-			GlutenFree,
-			Vegan,
-			Carnivore,
-			NbOfTypes
+			GlutenFree = 1,
+			Vegan = 1,
+			Carnivore = 1,
+			NbOfTypes = 1
 		};
 
 		std::vector<double>	stock;
