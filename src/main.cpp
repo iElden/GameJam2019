@@ -53,6 +53,12 @@ void	handleClick(gtd::Screen &screen, sf::Event &event)
 			delete (*towers)[selected];
 			(*towers).erase((*towers).begin() + selected);
 			selected = -1;
+		} else if (position.x > 544 && position.y > 365 && position.y <= 448&& selected >= 0) {
+			if ((*towers)[selected]->getUpgradePrice() < game->getMoney()) {
+				game->loseMoney((*towers)[selected]->getUpgradePrice());
+				(*towers)[selected]->upgrade(1);
+				selected = -1;
+			}
 		} else if (selected == -2 && position.x >= 546) {
 			if (position.y >= 114 && position.y < 164) {
 				if (position.x < 600 && game->pay(gtd::CookingGrandMa::cost)) {
@@ -140,17 +146,24 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 		screen.displayElement(std::to_string(static_cast<int>(game->stock.stock[i])), sf::Vector2f(570, 40 + i * 18));
 	}
 	if (selected >= 0) {
+		screen.fillColor(sf::Color(0, 0, 0));
+		screen.displayElement("Level: " + std::to_string(towers[selected]->getLevel()), sf::Vector2f(545, 335));
 		screen.fillColor(sf::Color(255, 0, 0));
 		screen.displayElement(sf::IntRect(544, 418, 100, 30));
 		screen.fillColor(sf::Color(0, 0, 0));
 		screen.displayElement("Sell for", sf::Vector2f(572, 418));
 		screen.displayElement(std::to_string(static_cast<int>(towers[selected]->getRefund())) + "$", sf::Vector2f(580, 430));
+		screen.fillColor(sf::Color(0, 100, 200));
+		screen.displayElement(sf::IntRect(544, 365, 100, 50));
+		screen.fillColor(towers[selected]->getCost() <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
+		screen.displayElement("UPGRADE", sf::Vector2f(555, 375));
+		screen.displayElement(std::to_string(static_cast<int>(towers[selected]->getUpgradePrice())) + "$", sf::Vector2f(580, 395));
 	}
 	if (selected == -2) {
 		screen.fillColor(sf::Color(0, 255, 0, 120));
 		screen.displayElement(sf::IntRect(selectedBox.x * 32, selectedBox.y * 32, 32, 32));
 		screen.fillColor(sf::Color(120, 120, 120));
-		screen.displayElement(sf::IntRect(546, 115, 800, 150));
+		screen.displayElement(sf::IntRect(546, 115, 800, 125));
 
 		screen.fillColor(gtd::CookingGrandMa::cost <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
 		sprites["cooking"]->_sprite.setRotation(90);

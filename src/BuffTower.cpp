@@ -52,6 +52,7 @@ void	gtd::BuffTower::upgrade(int level)
                 this->_asMultiplier /= (1 - level * 15. / 100);
                 this->_dmgMultiplier /= (1 - level * 10. / 100);
         }
+        this->_upgradePrice = (1 + this->_level) * this->getCost() / 10;
         this->_displayedRange += 0.5 * level;
         this->_level += level;
 }

@@ -38,6 +38,11 @@ void gtd::Game::wonMoney(unsigned value)
     this->_money += value;
 }
 
+void gtd::Game::loseMoney(unsigned value)
+{
+    this->_money -= value;
+}
+
 void gtd::Game::nextWave()
 {
         this->_wave++;

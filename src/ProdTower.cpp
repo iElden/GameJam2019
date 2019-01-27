@@ -75,6 +75,7 @@ void	gtd::ProdTower::upgrade(int level)
 		this->_prodSpeed *= (1 + level * 20. / 100);
 	else
 		this->_prodSpeed /= (1 + level * 20. / 100);
+	this->_upgradePrice = (1 + this->_level) * this->getCost() / 10;
 	this->_level += level;
 }
 
