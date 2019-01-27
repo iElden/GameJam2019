@@ -12,5 +12,5 @@ gtd::CaramelGrandMa::CaramelGrandMa(const sf::SoundBuffer &sBuffer, const sf::Ve
 
 void gtd::CaramelGrandMa::applyEffects(gtd::Mob *mob)
 {
-	mob->reduceSpeed(1 + 0.30 * this->getLevel());
+	mob->reduceSpeed(1 - 0.30 * this->getLevel(), 2 + this->getLevel() * 0.25);
 }

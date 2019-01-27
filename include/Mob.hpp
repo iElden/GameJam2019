@@ -21,24 +21,22 @@ namespace gtd {
 		void	display(gtd::Screen &screen);
 		sf::Vector2f getPos();
 		sf::Vector2u getSize();
-		void reduceSpeed(const double &slow);
-		void getBlocked();
-		void getUnblocked();
+		void reduceSpeed(const double &slow, const double &duration);
 
 	protected:
 		gtd::Map::Blocks _dir;
 		gtd::Sprite	*_sprite;
 		sf::Vector2f	_pos;
 		int		_animation = 0;
-        sf::Time _animation1FrameStartTime{ sf::Time::Zero };
-        sf::Time _animation1FrameDuration{ sf::seconds(1.f / 4.f) }; // 12 frames per second
+		sf::Time _animation1FrameStartTime{ sf::Time::Zero };
+		sf::Time _animation1FrameDuration{ sf::seconds(1.f / 4.f) };
+		sf::Time _slowStart{ sf::Time::Zero };
 		double		_animationSpeed = 250;
 		double		_movementSpeed;
-		double		_saveMovementSpeed;
 		double		_health;
 		double		_maxHealth;
-		bool		_slowDown;
-		bool 		_blocked;
+		double		_slowDuration;
+		double		_speedMultpilier;
 	};
 }
 

@@ -18,8 +18,6 @@ gtd::Mob::Mob(const double &maxHealth, const double &ms, const sf::Vector2f &pos
 	_health(maxHealth),
 	_maxHealth(maxHealth)
 {
-	this->_slowDown = false;
-	this->_blocked = true;
 }
 
 void gtd::Mob::display(gtd::Screen &screen)
@@ -46,36 +44,32 @@ void gtd::Mob::display(gtd::Screen &screen)
 
 bool	gtd::Mob::move(gtd::Map &map)
 {
-	double	end = this->_movementSpeed / 10;
+	double	end = this->_movementSpeed * this->_speedMultpilier / 10;
 
-	if (this->_blocked == true) {
-		sf::Time currentTime = game->clock.getElapsedTime();
-		if (currentTime - _animation1FrameStartTime >= _animation1FrameDuration)
-			this->_blocked = false;
-	} else {
-		for (; end > 0.1; end -= 0.1) {
-			if (this->_pos.x > map.getSize().x / 32 || this->_pos.x < 0 ||
-			    this->_pos.y > map.getSize().y / 32 || this->_pos.y < 0)
+	if (game->clock.getElapsedTime().asSeconds() > this->_slowStart.asSeconds() + this->_slowDuration)
+		this->_speedMultpilier = 1;
+	for (; end > 0.1; end -= 0.1) {
+		if (this->_pos.x > map.getSize().x / 32 || this->_pos.x < 0 ||
+		    this->_pos.y > map.getSize().y / 32 || this->_pos.y < 0)
+			return false;
+		this->_dir = map[this->_pos.y + (this->_dir == gtd::Map::UP) * 0.9][this->_pos.x +
+										    (this->_dir ==
+										     gtd::Map::LEFT) * 0.9];
+		switch (this->_dir) {
+			case gtd::Map::UP:
+				this->_pos.y -= 0.1;
+				break;
+			case gtd::Map::DOWN:
+				this->_pos.y += 0.1;
+				break;
+			case gtd::Map::LEFT:
+				this->_pos.x -= 0.1;
+				break;
+			case gtd::Map::RIGHT:
+				this->_pos.x += 0.1;
+				break;
+			default:
 				return false;
-			this->_dir = map[this->_pos.y + (this->_dir == gtd::Map::UP) * 0.9][this->_pos.x +
-											    (this->_dir ==
-											     gtd::Map::LEFT) * 0.9];
-			switch (this->_dir) {
-				case gtd::Map::UP:
-					this->_pos.y -= 0.1;
-					break;
-				case gtd::Map::DOWN:
-					this->_pos.y += 0.1;
-					break;
-				case gtd::Map::LEFT:
-					this->_pos.x -= 0.1;
-					break;
-				case gtd::Map::RIGHT:
-					this->_pos.x += 0.1;
-					break;
-				default:
-					return false;
-			}
 		}
 	}
 	if (this->_pos.x > map.getSize().x/32 || this->_pos.x < 0 || this->_pos.y > map.getSize().y/32 || this->_pos.y < 0)
@@ -136,25 +130,10 @@ void gtd::Mob::update_animation() {
     }
 }
 
-void gtd::Mob::reduceSpeed(const double &slow)
+void gtd::Mob::reduceSpeed(const double &slow, const double &duration)
 {
-	if (!this->_slowDown) {
-		this->_movementSpeed *= slow;
-		this->_animationSpeed = 200.;
-		this->_slowDown = true;
-	}
-}
-
-void gtd::Mob::getBlocked()
-{
-	this->_saveMovementSpeed = this->_movementSpeed;
-	this->_movementSpeed = 0;
-	this->_blocked = true;
-}
-
-
-void gtd::Mob::getUnblocked()
-{
-	this->_movementSpeed = this->_saveMovementSpeed ;
-	this->_blocked = false;
+	if (this->_speedMultpilier > slow)
+		this->_speedMultpilier = slow;
+	this->_slowDuration = duration;
+	this->_slowStart = game->clock.getElapsedTime();
 }

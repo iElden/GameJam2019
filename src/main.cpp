@@ -70,16 +70,21 @@ void	handleClick(gtd::Screen &screen, sf::Event &event)
 					towers->emplace_back(new gtd::TvGrandMa(sBuffer, selectedBox));
 					selected = -1;
 				}
-			} else if (position.y >= 164 && position.y < 304) {
+			} else if (position.y >= 164 && position.y < 214) {
 				if (position.x < 600 && game->pay(gtd::CakeGrandMa::cost)) {
 					towers->emplace_back(new gtd::CakeGrandMa(sBuffer, selectedBox));
 					selected = -1;
 				} else if (position.x >= 600 && position.x < 650 && game->pay(gtd::CaramelGrandMa::cost)) {
 					towers->emplace_back(new gtd::CaramelGrandMa(sBuffer, selectedBox));
 					selected = -1;
-				} else if (position.x >= 650 && game->pay(gtd::SpeakingGrandMa::cost)) {
+				}
+			} else if (position.y >= 214 && position.y < 264) {
+				if (position.x < 600 && game->pay(gtd::SpeakingGrandMa::cost)) {
 					towers->emplace_back(new gtd::SpeakingGrandMa(sBuffer, selectedBox));
 					selected = -1;
+				} else if (position.x >= 600 && position.x < 650 && game->pay(gtd::CaramelGrandMa::cost)) {
+					//towers->emplace_back(new gtd::CaramelGrandMa(sBuffer, selectedBox));
+					//selected = -1;
 				}
 			}
 		} else {
@@ -151,18 +156,17 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 		screen.displayElement(std::to_string(static_cast<int>(game->stock.stock[i])), sf::Vector2f(570, 40 + i * 18));
 	}
 	if (selected >= 0) {
-
+		screen.fillColor(sf::Color(255, 0, 0));
 		screen.displayElement(sf::IntRect(544, 418, 100, 30));
 		screen.fillColor(sf::Color(0, 0, 0));
 		screen.displayElement("Sell for", sf::Vector2f(572, 418));
 		screen.displayElement(std::to_string(static_cast<int>(towers[selected]->getRefund())) + "$", sf::Vector2f(580, 430));
-		screen.fillColor(sf::Color(0, 100, 200));
 
 		screen.fillColor(sf::Color(0, 0, 0));
 		screen.displayElement("Level: " + std::to_string(towers[selected]->getLevel()), sf::Vector2f(545, 335));
 		screen.fillColor(sf::Color(255, 0, 0));
 
-		screen.fillColor(sf::Color(0, 0, 0));
+		/*screen.fillColor(sf::Color(0, 0, 0));
 		screen.displayElement("Range: " + std::to_string(towers[selected]->getLevel()), sf::Vector2f(545, 335));
 		screen.fillColor(sf::Color(255, 0, 0));
 
@@ -172,9 +176,10 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 
 		screen.fillColor(sf::Color(0, 0, 0));
 		screen.displayElement("Attack Speed: " + std::to_string(towers[selected]->getLevel()), sf::Vector2f(545, 335));
-		screen.fillColor(sf::Color(255, 0, 0));
+		screen.fillColor(sf::Color(255, 0, 0))*/;
 
-		screen.displayElement(sf::IntRect(544, 375, 100, 50));
+		screen.fillColor(sf::Color(0, 100, 200));
+		screen.displayElement(sf::IntRect(544, 375, 100, 40));
 		screen.fillColor(towers[selected]->getUpgradePrice() <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
 		screen.displayElement("UPGRADE", sf::Vector2f(555, 375));
 		screen.displayElement(std::to_string(static_cast<int>(towers[selected]->getUpgradePrice())) + "$", sf::Vector2f(580, 395));
