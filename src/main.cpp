@@ -58,11 +58,9 @@ void	handleClick(gtd::Screen &screen, sf::Event &event)
 			sound.setBuffer(sBuffers["sell"]);
 			sound.play();
 		} else if (position.x > 544 && position.y > 365 && position.y <= 448&& selected >= 0) {
-			if ((*towers)[selected]->getUpgradePrice() <= game->getMoney()) {
+			if ((*towers)[selected]->getLevel() < 5 && (*towers)[selected]->getUpgradePrice() <= game->getMoney()) {
 				game->loseMoney((*towers)[selected]->getUpgradePrice());
 				(*towers)[selected]->upgrade(1);
-				(*towers)[selected]->select();
-				selected = -1;
 			}
 		} else if (selected == -2 && position.x > 544) {
 			if (position.y >= 114 && position.y < 164) {
@@ -70,12 +68,12 @@ void	handleClick(gtd::Screen &screen, sf::Event &event)
 					towers->emplace_back(new gtd::CookingGrandMa({}, selectedBox, sBuffers["cooking"]));
 					selected = -1;
 				} else if (position.x >= 600 && game->pay(gtd::TvGrandMa::cost)) {
-					towers->emplace_back(new gtd::TvGrandMa({}, selectedBox, sBuffers["tv"]));
+					towers->emplace_back(new gtd::TvGrandMa({}, selectedBox, sBuffers["tv" + std::to_string(rand() % 4)]));
 					selected = -1;
 				}
 			} else if (position.y >= 164 && position.y < 214) {
 				if (position.x < 600 && game->pay(gtd::CakeGrandMa::cost)) {
-					towers->emplace_back(new gtd::CakeGrandMa(sBuffers["throw"], selectedBox, sBuffers["cake"]));
+					towers->emplace_back(new gtd::CakeGrandMa(sBuffers["throw"], selectedBox, sBuffers["cake" + std::to_string(rand() % 3)]));
 					selected = -1;
 				} else if (position.x >= 600 && position.x < 650 && game->pay(gtd::CaramelGrandMa::cost)) {
 					towers->emplace_back(new gtd::CaramelGrandMa(sBuffers["throw"], selectedBox, sBuffers["caramel"]));
@@ -176,11 +174,13 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 		screen.displayElement("Attack Speed: " + std::to_string(towers[selected]->getLevel()), sf::Vector2f(545, 335));
 		screen.fillColor(sf::Color(255, 0, 0));*/
 
-		screen.fillColor(sf::Color(0, 100, 200));
-		screen.displayElement(sf::IntRect(544, 375, 100, 40));
-		screen.fillColor(towers[selected]->getUpgradePrice() <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
-		screen.displayElement("UPGRADE", sf::Vector2f(555, 375));
-		screen.displayElement(std::to_string(static_cast<int>(towers[selected]->getUpgradePrice())) + "$", sf::Vector2f(580, 395));
+		if (towers[selected]->getLevel() < 5) {
+			screen.fillColor(sf::Color(0, 100, 200));
+			screen.displayElement(sf::IntRect(544, 375, 100, 40));
+			screen.fillColor(towers[selected]->getUpgradePrice() <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0,  0));
+			screen.displayElement("UPGRADE", sf::Vector2f(555, 375));
+			screen.displayElement(std::to_string(static_cast<int>(towers[selected]->getUpgradePrice())) + "$",sf::Vector2f(580, 395));
+		}
 	}
 	if (selected == -2) {
 		screen.fillColor(sf::Color(0, 255, 0, 120));
@@ -307,9 +307,14 @@ void	loadSounds()
 	sBuffers["caramel"].loadFromFile("assets/caramel.ogg");
 	sBuffers["throw"].loadFromFile("assets/throw.ogg");
 	sBuffers["speak"].loadFromFile("assets/speak.ogg");
+	sBuffers["cake0"].loadFromFile("assets/cake0.ogg");
+	sBuffers["cake1"].loadFromFile("assets/cake1.ogg");
+	sBuffers["cake2"].loadFromFile("assets/cake2.ogg");
 	sBuffers["sell"].loadFromFile("assets/sell.ogg");
-	sBuffers["cake"].loadFromFile("assets/cake.ogg");
-	sBuffers["tv"].loadFromFile("assets/tv.ogg");
+	sBuffers["tv0"].loadFromFile("assets/tv0.ogg");
+	sBuffers["tv1"].loadFromFile("assets/tv1.ogg");
+	sBuffers["tv2"].loadFromFile("assets/tv2.ogg");
+	sBuffers["tv3"].loadFromFile("assets/tv3.ogg");
 }
 
 void	loadAssets()

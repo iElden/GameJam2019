@@ -102,6 +102,6 @@ void	gtd::Tower::select()
 
 double gtd::Tower::getUpgradePrice() const
 {
-	return ((this->_cost * (this->_level + 1)) / 4.);
+	return ((this->_cost * (this->_level + 1)) / 2.);
 }
 
