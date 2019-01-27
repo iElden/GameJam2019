@@ -129,12 +129,7 @@ void gtd::Mob::update_animation() {
 void gtd::Mob::reduceSpeed(const double &slow)
 {
 	if (!this->_slowDown) {
-		if (this->_movementSpeed > slow)
-			this->_movementSpeed -= slow;
-		else if (this->_movementSpeed > 1)
-			this->_movementSpeed -= slow * 100 / this->_movementSpeed;
-		else
-			this->_movementSpeed -= slow / 100 * this->_movementSpeed;
+		this->_movementSpeed *= slow;
 		this->_animationSpeed = 200.;
 		this->_slowDown = true;
 	}
