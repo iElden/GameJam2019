@@ -204,6 +204,9 @@ void	game_fct()
 		_map.display(screen);
 		for (gtd::Tower *tower : _towers)
 			tower->resetBuffs();
+		for (gtd::Tower *tower : _towers)
+			if (tower->getType() ==  gtd::Tower::Buff)
+				(reinterpret_cast<gtd::BuffTower *>(tower))->buffTowers(_towers);
 		for (gtd::Tower *tower : _towers) {
 			tower->update();
 			tower->display(screen);
@@ -213,9 +216,6 @@ void	game_fct()
 				break;
 			case gtd::Tower::Production:
 				(reinterpret_cast<gtd::ProdTower *>(tower))->prod(game->stock);
-				break;
-			case gtd::Tower::Buff:
-				(reinterpret_cast<gtd::BuffTower *>(tower))->buffTowers(_towers);
 			}
 		}
 		for (int i = 0; i < static_cast<int>(mobs.size()); i++) {
