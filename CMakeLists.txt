@@ -28,10 +28,12 @@ add_executable(
 	src/ProdTower.cpp
 	include/ProdTower.hpp
 	include/Resources.hpp
-	include/CakeGrandGa.hpp
-	src/CakeGrandGa.cpp
-	include/CaramelGrandGa.hpp
-	src/CaramelGrandGa.cpp
+        include/CakeGrandMa.hpp
+        src/CakeGrandMa.cpp
+	include/CaramelGrandMa.hpp
+	src/CaramelGrandMa.cpp
+	include/SpeakingGrandMa.hpp
+	src/SpeakingGrandMa.cpp
 	include/TvGrandMa.hpp
 	src/TvGrandMa.cpp
 	src/CookingGrandMa.cpp
