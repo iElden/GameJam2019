@@ -64,7 +64,7 @@ void	handleClick(gtd::Screen &screen, sf::Event &event)
 				(*towers)[selected]->select();
 				selected = -1;
 			}
-		} else if (selected == -2) {
+		} else if (selected == -2 && position.x > 544) {
 			if (position.y >= 114 && position.y < 164) {
 				if (position.x < 600 && game->pay(gtd::CookingGrandMa::cost)) {
 					towers->emplace_back(new gtd::CookingGrandMa({}, selectedBox, sBuffers["cooking"]));

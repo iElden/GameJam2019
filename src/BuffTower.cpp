@@ -49,11 +49,11 @@ void gtd::BuffTower::buff(const double &as, const double &dmg, const double &ran
 void	gtd::BuffTower::upgrade(int level)
 {
         if (level > 0) {
-                this->_asMultiplier *= (1 - level * 15. / 100);
-                this->_dmgMultiplier *= (1 - level * 10. / 100);
+                this->_asMultiplier *= (1 + level * 5. / 100);
+                this->_dmgMultiplier *= (1 + level * 10. / 100);
         } else {
-                this->_asMultiplier /= (1 - level * 15. / 100);
-                this->_dmgMultiplier /= (1 - level * 10. / 100);
+                this->_asMultiplier /= (1 + level * 5. / 100);
+                this->_dmgMultiplier /= (1 + level * 10. / 100);
         }
         this->_displayedRange += 0.5 * level;
         this->_level += level;
