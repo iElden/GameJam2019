@@ -30,6 +30,8 @@ add_executable(
 	include/Resources.hpp
 	include/CakeGrandGa.hpp
 	src/CakeGrandGa.cpp
+	include/CaramelGrandGa.hpp
+	src/CaramelGrandGa.cpp
 	include/TvGrandMa.hpp
 	src/TvGrandMa.cpp
 	src/CookingGrandMa.cpp

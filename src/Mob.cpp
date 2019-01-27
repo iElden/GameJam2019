@@ -18,6 +18,7 @@ gtd::Mob::Mob(const double &maxHealth, const double &ms, const sf::Vector2f &pos
 	_health(maxHealth),
 	_maxHealth(maxHealth)
 {
+	this->_slowDown = false;
 }
 
 void gtd::Mob::display(gtd::Screen &screen)
@@ -120,7 +121,21 @@ void gtd::Mob::update_animation() {
     sf::Time currentTime = game->clock.getElapsedTime();
     if (currentTime - _animation1FrameStartTime >= _animation1FrameDuration) {
         this->_animation += 1;
-        this->_animation %= (this->_sprite->_texture.getSize().x / this->_sprite->getSize().x);
+        this->_animation %= (this->_sprite->_texture.getSize().x / this->_sprite->getSize().x) ?: 1;
         _animation1FrameStartTime = currentTime;
     }
+}
+
+void gtd::Mob::reduceSpeed(const double &slow)
+{
+	if (!this->_slowDown) {
+		if (this->_movementSpeed > slow)
+			this->_movementSpeed -= slow;
+		else if (this->_movementSpeed > 1)
+			this->_movementSpeed -= slow * 100 / this->_movementSpeed;
+		else
+			this->_movementSpeed -= slow / 100 * this->_movementSpeed;
+		this->_animationSpeed = 200.;
+		this->_slowDown = true;
+	}
 }

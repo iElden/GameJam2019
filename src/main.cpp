@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "CookingGrandMa.hpp"
+#include "CaramelGrandGa.hpp"
 #include "CakeGrandGa.hpp"
 #include "TvGrandMa.hpp"
 #include "AtkTower.hpp"
@@ -65,8 +66,9 @@ void	handleClick(gtd::Screen &screen, sf::Event &event)
 				if (position.x < 600 && game->pay(gtd::CakeGrandMa::cost)) {
 					towers->emplace_back(new gtd::CakeGrandMa(sBuffer, selectedBox));
 					selected = -1;
-				} else if (position.x >= 600 && game->pay(gtd::TvGrandMa::cost)) {
-					//towers->emplace_back(new gtd::CookingGrandMa(sBuffer, selectedBox));
+				} else if (position.x >= 600 && game->pay(gtd::CaramelGrandMa::cost)) {
+					towers->emplace_back(new gtd::CaramelGrandMa(sBuffer, selectedBox));
+					selected = -1;
 				}
 			}
 		} else {
@@ -148,7 +150,7 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 		screen.fillColor(sf::Color(0, 255, 0, 120));
 		screen.displayElement(sf::IntRect(selectedBox.x * 32, selectedBox.y * 32, 32, 32));
 		screen.fillColor(sf::Color(120, 120, 120));
-		screen.displayElement(sf::IntRect(546, 115, 800, 110));
+		screen.displayElement(sf::IntRect(546, 115, 800, 150));
 
 		screen.fillColor(gtd::CookingGrandMa::cost <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
 		sprites["cooking"]->_sprite.setRotation(90);
@@ -164,6 +166,11 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 		sprites["grandma1"]->_sprite.setRotation(90);
 		screen.displayElement(sprites["grandma1"]->_sprite, sf::Vector2f(590, 170));
 		screen.displayElement(std::to_string(gtd::CakeGrandMa::cost) + "$", sf::Vector2f(564, 200));
+
+		screen.fillColor(gtd::CakeGrandMa::cost <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
+		sprites["grandma2"]->_sprite.setRotation(90);
+		screen.displayElement(sprites["grandma2"]->_sprite, sf::Vector2f(630, 170));
+		screen.displayElement(std::to_string(gtd::CaramelGrandMa::cost) + "$", sf::Vector2f(604, 200));
 	}
 	screen.fillColor(sf::Color(0, 0, 0));
 	screen.displayElement("Wave " + std::to_string(game->getWave()), sf::Vector2f(550, 450));
@@ -240,13 +247,14 @@ int	main()
 	sprites["cooking"]	= new gtd::Sprite("assets/cooking.png", sf::Vector2u(32, 32));
 	sprites["tv"]		= new gtd::Sprite("assets/tv.png", sf::Vector2u(32, 32));
 	sprites["grandma1"]	= new gtd::Sprite("assets/grandma1.png", sf::Vector2u(32, 32));
+	sprites["grandma2"]	= new gtd::Sprite("assets/grandma2.png", sf::Vector2u(32, 32));
 	sprites["boi"]		= new gtd::Sprite("assets/boi.png", sf::Vector2u(32, 32));
 	sprites["girl"]		= new gtd::Sprite("assets/girl.png", sf::Vector2u(32, 32));
 	sprites["blondboi"]	= new gtd::Sprite("assets/fastblondboi.png", sf::Vector2u(32, 32));
 	sprites["blondgirl"]	= new gtd::Sprite("assets/fastblondgirl.png", sf::Vector2u(32, 32));
 	sprites["redboi"]	= new gtd::Sprite("assets/fastredboi.png", sf::Vector2u(32, 32));
 	sprites["redgirl"]	= new gtd::Sprite("assets/fastredgirl.png", sf::Vector2u(32, 32));
-	sprites["big_boi"]	= new gtd::Sprite("assets/BIGboi.png", sf::Vector2u(32, 32));
+	sprites["big_boi"]	= new gtd::Sprite("assets/bigboi.png", sf::Vector2u(32, 32));
 	sprites["life"]		= new gtd::Sprite("assets/life.png", sf::Vector2u(16, 16));
 	sprites["money"]	= new gtd::Sprite("assets/money.png", sf::Vector2u(16, 16));
 	sprites["stock"]	= new gtd::Sprite("assets/stock.png", sf::Vector2u(16, 16));
