@@ -54,9 +54,10 @@ void	handleClick(gtd::Screen &screen, sf::Event &event)
 			(*towers).erase((*towers).begin() + selected);
 			selected = -1;
 		} else if (position.x > 544 && position.y > 365 && position.y <= 448&& selected >= 0) {
-			if ((*towers)[selected]->getUpgradePrice() < game->getMoney()) {
+			if ((*towers)[selected]->getUpgradePrice() <= game->getMoney()) {
 				game->loseMoney((*towers)[selected]->getUpgradePrice());
 				(*towers)[selected]->upgrade(1);
+				(*towers)[selected]->select();
 				selected = -1;
 			}
 		} else if (selected == -2 && position.x >= 546) {
@@ -146,16 +147,31 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 		screen.displayElement(std::to_string(static_cast<int>(game->stock.stock[i])), sf::Vector2f(570, 40 + i * 18));
 	}
 	if (selected >= 0) {
-		screen.fillColor(sf::Color(0, 0, 0));
-		screen.displayElement("Level: " + std::to_string(towers[selected]->getLevel()), sf::Vector2f(545, 335));
-		screen.fillColor(sf::Color(255, 0, 0));
+
 		screen.displayElement(sf::IntRect(544, 418, 100, 30));
 		screen.fillColor(sf::Color(0, 0, 0));
 		screen.displayElement("Sell for", sf::Vector2f(572, 418));
 		screen.displayElement(std::to_string(static_cast<int>(towers[selected]->getRefund())) + "$", sf::Vector2f(580, 430));
 		screen.fillColor(sf::Color(0, 100, 200));
-		screen.displayElement(sf::IntRect(544, 365, 100, 50));
-		screen.fillColor(towers[selected]->getCost() <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
+
+		screen.fillColor(sf::Color(0, 0, 0));
+		screen.displayElement("Level: " + std::to_string(towers[selected]->getLevel()), sf::Vector2f(545, 335));
+		screen.fillColor(sf::Color(255, 0, 0));
+
+		screen.fillColor(sf::Color(0, 0, 0));
+		screen.displayElement("Range: " + std::to_string(towers[selected]->getLevel()), sf::Vector2f(545, 335));
+		screen.fillColor(sf::Color(255, 0, 0));
+
+		screen.fillColor(sf::Color(0, 0, 0));
+		screen.displayElement("Damages: " + std::to_string(towers[selected]->getLevel()), sf::Vector2f(545, 335));
+		screen.fillColor(sf::Color(255, 0, 0));
+
+		screen.fillColor(sf::Color(0, 0, 0));
+		screen.displayElement("Attack Speed: " + std::to_string(towers[selected]->getLevel()), sf::Vector2f(545, 335));
+		screen.fillColor(sf::Color(255, 0, 0));
+
+		screen.displayElement(sf::IntRect(544, 375, 100, 50));
+		screen.fillColor(towers[selected]->getUpgradePrice() <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
 		screen.displayElement("UPGRADE", sf::Vector2f(555, 375));
 		screen.displayElement(std::to_string(static_cast<int>(towers[selected]->getUpgradePrice())) + "$", sf::Vector2f(580, 395));
 	}
@@ -180,7 +196,7 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 		screen.displayElement(sprites["grandma1"]->_sprite, sf::Vector2f(590, 170));
 		screen.displayElement(std::to_string(gtd::CakeGrandMa::cost) + "$", sf::Vector2f(564, 200));
 
-		screen.fillColor(gtd::CakeGrandMa::cost <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
+		screen.fillColor(gtd::CaramelGrandMa::cost <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
 		sprites["grandma2"]->_sprite.setRotation(90);
 		screen.displayElement(sprites["grandma2"]->_sprite, sf::Vector2f(630, 170));
 		screen.displayElement(std::to_string(gtd::CaramelGrandMa::cost) + "$", sf::Vector2f(604, 200));

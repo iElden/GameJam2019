@@ -55,7 +55,6 @@ namespace gtd {
 		double		_dmgBuff = 1;
 		double		_rangeBuff = 1;
 		gtd::Sprite	*_sprite;
-		double	 	_upgradePrice;
 
 	private:
 		sf::SoundBuffer	_sBuff;

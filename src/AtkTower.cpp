@@ -149,7 +149,6 @@ void	gtd::AtkTower::upgrade(int level)
 		this->_damages /= (1 + 0.15 * level);
 		this->_attackSpeed /= (1 + 0.20 * level);
 	}
-		this->_upgradePrice = (1 + this->_level) * this->getCost() / 10;
 	this->_level += level;
 }
 
