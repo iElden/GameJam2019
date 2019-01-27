@@ -21,7 +21,7 @@ sf::SoundBuffer				sBuffer;
 
 int	getTowerAtPos(int x, int y)
 {
-	for (int i = 0; i < towers->size(); i++)
+	for (int i = 0; i < static_cast<int>(towers->size()); i++)
 		if (static_cast<int>((*towers)[i]->getPosition().x) == x && static_cast<int>((*towers)[i]->getPosition().y) == y)
 			return i;
 	throw std::exception();
@@ -122,6 +122,7 @@ bool manageWave(int wave, std::vector<gtd::Mob *> &mobs, gtd::Map &map, bool res
 
 void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &towers)
 {
+    (void) map;
 	screen.fillColor(sf::Color(255, 255, 0));
 	screen.displayElement(sf::IntRect(544, 0, 32 * 3, 480));
 	screen.textSize(15);
@@ -131,7 +132,7 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 	sprites["money"]->display(screen, sf::Vector2f(550, 22));
 	screen.fillColor(sf::Color(0, 0, 0));
 	screen.displayElement(std::to_string(game->getMoney()), sf::Vector2f(570, 22));
-	for (int i = 0; i < game->stock.stock.size(); i++) {
+	for (unsigned i = 0; i < game->stock.stock.size(); i++) {
 		sprites["stock"]->display(screen, sf::Vector2f(550, 40 + i * 18));
 		screen.fillColor(sf::Color(0, 0, 0));
 		screen.displayElement(std::to_string(static_cast<int>(game->stock.stock[i])), sf::Vector2f(570, 40 + i * 18));
@@ -210,7 +211,7 @@ void	game_fct()
 				(reinterpret_cast<gtd::BuffTower *>(tower))->buffTowers(_towers);
 			}
 		}
-		for (int i = 0; i < mobs.size(); i++) {
+		for (int i = 0; i < static_cast<int>(mobs.size()); i++) {
 			gtd::Mob *mob = mobs[i];
 
 			if (!mob->move(_map)) {
