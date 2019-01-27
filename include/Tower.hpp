@@ -43,6 +43,7 @@ namespace gtd {
 		virtual	void	upgrade(int level) = 0;
 		virtual	void	update() = 0;
 		virtual	void	buff(const double &as, const double &dmg, const double &range) = 0;
+		double		getUpgradePrice() const;
 
 	protected:
 		double		_displayedRange;
@@ -54,6 +55,7 @@ namespace gtd {
 		double		_dmgBuff = 1;
 		double		_rangeBuff = 1;
 		gtd::Sprite	*_sprite;
+		double	 	_upgradePrice;
 
 	private:
 		sf::SoundBuffer	_sBuff;

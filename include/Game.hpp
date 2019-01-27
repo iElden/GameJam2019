@@ -17,6 +17,7 @@ namespace  gtd {
 		unsigned getWave() const;
 		bool pay(unsigned value);
 		void wonMoney(unsigned value);
+		void loseMoney(unsigned value);
 		bool lostLife();
 		void nextWave();
 		gtd::Food	stock;

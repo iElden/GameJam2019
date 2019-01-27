@@ -37,6 +37,7 @@ namespace gtd {
 		virtual void fire(std::vector<gtd::Mob *> &allMobs, gtd::Game &game);
 		virtual void update() override;
 		virtual	void applyEffects(gtd::Mob *mob) = 0;
+		void	getUpgradePrice() const;
 	};
 }
 

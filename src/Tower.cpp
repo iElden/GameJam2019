@@ -24,6 +24,7 @@ gtd::Tower::Tower(const unsigned &cost,
 {
 	this->_sound.setBuffer(this->_sBuff);
 	logger.info("Added new tower \"" + this->_name + "\"");
+	this->_upgradePrice = (1 + this->_level) * cost / 10;
 }
 
 void	gtd::Tower::display(gtd::Screen &screen)
@@ -94,4 +95,9 @@ bool	gtd::Tower::isSelected()
 void	gtd::Tower::select()
 {
 	this->_isSelected = !this->_isSelected;
+}
+
+double gtd::Tower::getUpgradePrice() const
+{
+	return (_upgradePrice);
 }
