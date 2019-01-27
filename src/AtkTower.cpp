@@ -21,6 +21,7 @@ gtd::AtkTower::AtkTower(const double &attackSpeed,
 : Tower(cost, Attack, sBuffer, sprite, pos, displayedRange, name)
 {
 	this->_attackSpeed = attackSpeed;
+	this->_buffer = 60. / this->_attackSpeed;
 	this->_damages = damages;
 	this->_isAOE = isAOE;
 }
@@ -90,6 +91,12 @@ void gtd::AtkTower::fire(std::vector<gtd::Mob *> &allMobs, gtd::Game &game)
 				return;
 			for (gtd::Mob *mob : allMobs) {
 				if (this->getDistanceTo(mob->getPos()) <= this->_displayedRange) {
+					sf::Vector2f	point1 = sf::Vector2f(this->_pos.x, this->_pos.y);
+					sf::Vector2f	point2 = mob->getPos();
+					double          distance = sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2));
+					sf::Vector2f    vec2((point2.x - point1.x) / distance, (point2.y - point1.y) / distance);
+
+					this->_angle = atan2(vec2.y, vec2.x) * 180 / M_PI;
 					mob->takeDamage(this->_damages);
 					this->applyEffects(mob);
 					this->_isAttacking = true;

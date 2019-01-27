@@ -256,6 +256,8 @@ void	game_fct()
 
 int	main()
 {
+	sf::Music	music;
+
 	logger.info("Loading assets.");
 	sprites["cooking"]	= new gtd::Sprite("assets/cooking.png", sf::Vector2u(32, 32));
 	sprites["tv"]		= new gtd::Sprite("assets/tv.png", sf::Vector2u(32, 32));
@@ -271,7 +273,10 @@ int	main()
 	sprites["life"]		= new gtd::Sprite("assets/life.png", sf::Vector2u(16, 16));
 	sprites["money"]	= new gtd::Sprite("assets/money.png", sf::Vector2u(16, 16));
 	sprites["stock"]	= new gtd::Sprite("assets/stock.png", sf::Vector2u(16, 16));
+	music.openFromFile("assets/music.ogg");
 	logger.info("Starting game.");
+	music.setLoop(true);
+	music.play();
 	game_fct();
 	logger.info("Deleting ressources.");
 	for (const std::pair<const std::string, gtd::Sprite *> &sprite : sprites)

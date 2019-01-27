@@ -6,7 +6,7 @@
 #include "CaramelGrandGa.hpp"
 
 gtd::CaramelGrandMa::CaramelGrandMa(const sf::SoundBuffer &sBuffer, const sf::Vector2u &pos) :
-	AtkTower(2, 20, this->cost, sBuffer, sprites["grandma2"], pos, 3.0, false, "Caramel Grand-ma")
+	AtkTower(0.75f, 10, this->cost, sBuffer, sprites["grandma2"], pos, 2.0, true, "Caramel Grand-ma")
 {
 }
 

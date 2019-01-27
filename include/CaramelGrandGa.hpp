@@ -12,7 +12,8 @@ namespace gtd {
 	public:
 		CaramelGrandMa(const sf::SoundBuffer &sBuffer, const sf::Vector2u &pos);
 		void applyEffects(gtd::Mob *mob) override;
-		static const int cost = 475;
+		static const int cost = 615;
 	};
 }
+
 #endif //GRANDMATD_CAKE_GRAND_MA_HPP
