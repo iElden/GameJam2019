@@ -38,7 +38,7 @@ void	gtd::Screen::setTitle(const std::string &title)
 	this->setTitle(title);
 }
 
-void	gtd::Screen::handleEvents(void (*handler)(sf::Event &))
+void	gtd::Screen::handleEvents(void (*handler)(gtd::Screen &, sf::Event &))
 {
 	sf::Event	event;
 
@@ -46,7 +46,7 @@ void	gtd::Screen::handleEvents(void (*handler)(sf::Event &))
 		if (event.type == sf::Event::Closed)
 			this->close();
 		else if (handler)
-			handler(event);
+			handler(*this, event);
 
 }
 

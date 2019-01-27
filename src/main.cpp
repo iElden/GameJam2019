@@ -27,42 +27,45 @@ int	getTowerAtPos(int x, int y)
 	throw std::exception();
 }
 
-void	handleClick(sf::Event &event)
+void	handleClick(gtd::Screen &screen, sf::Event &event)
 {
+	sf::Vector2f	position;
+
 	if (event.type == sf::Event::MouseButtonPressed) {
+		position = screen.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 		if (event.mouseButton.button == sf::Mouse::Right) {
 			if (selected >= 0)
 				(*towers)[selected]->select();
 			selected = -1;
-		} else if (event.mouseButton.x < 544 && (*map)[event.mouseButton.y / 32][event.mouseButton.x / 32] == gtd::Map::NOTHING) {
+		} else if (position.x < 544 && (*map)[position.y / 32][position.x / 32] == gtd::Map::NOTHING) {
 			try {
 				if (selected >= 0)
 					(*towers)[selected]->select();
-				selected = getTowerAtPos(event.mouseButton.x / 32, event.mouseButton.y / 32);
+				selected = getTowerAtPos(position.x / 32, position.y / 32);
 				(*towers)[selected]->select();
 			} catch (std::exception &e) {
 				selected = -2;
 			}
-			selectedBox = sf::Vector2u(event.mouseButton.x / 32, event.mouseButton.y / 32);
-		} else if (event.mouseButton.x > 544 && event.mouseButton.y >= 418 && event.mouseButton.y <= 448 && selected >= 0) {
+			selectedBox = sf::Vector2u(position.x / 32, position.y / 32);
+		} else if (position.x > 544 && position.y >= 418 && position.y <= 448 && selected >= 0) {
 			game->wonMoney((*towers)[selected]->getRefund());
 			delete (*towers)[selected];
 			(*towers).erase((*towers).begin() + selected);
 			selected = -1;
-		} else if (selected == -2 && event.mouseButton.x >= 546) {
-			if (event.mouseButton.y >= 114 && event.mouseButton.y < 164) {
-				if (event.mouseButton.x < 600 && game->pay(gtd::CookingGrandMa::cost)) {
+		} else if (selected == -2 && position.x >= 546) {
+			if (position.y >= 114 && position.y < 164) {
+				if (position.x < 600 && game->pay(gtd::CookingGrandMa::cost)) {
 					towers->emplace_back(new gtd::CookingGrandMa(sBuffer, selectedBox));
 					selected = -1;
-				} else if (event.mouseButton.x >= 600 && game->pay(gtd::TvGrandMa::cost)) {
+				} else if (position.x >= 600 && game->pay(gtd::TvGrandMa::cost)) {
 					towers->emplace_back(new gtd::TvGrandMa(sBuffer, selectedBox));
 					selected = -1;
 				}
-			} else if (event.mouseButton.y >= 164 && event.mouseButton.y < 214) {
-				if (event.mouseButton.x < 600 && game->pay(gtd::CakeGrandMa::cost)) {
+			} else if (position.y >= 164 && position.y < 214) {
+				if (position.x < 600 && game->pay(gtd::CakeGrandMa::cost)) {
 					towers->emplace_back(new gtd::CakeGrandMa(sBuffer, selectedBox));
 					selected = -1;
-				} else if (event.mouseButton.x >= 600 && game->pay(gtd::TvGrandMa::cost)) {
+				} else if (position.x >= 600 && game->pay(gtd::TvGrandMa::cost)) {
 					//towers->emplace_back(new gtd::CookingGrandMa(sBuffer, selectedBox));
 				}
 			}
@@ -86,19 +89,21 @@ bool manageWave(int wave, std::vector<gtd::Mob *> &mobs, gtd::Map &map, bool res
 	double speed_boys;
 	static int nb_Mobs = (wave / 2) + 6;
 	static int count = 0;
+	static int next = 0;
 
 	if (reset) {
 		return (nb_Mobs = (wave / 2) + 6), count = 0, true;
 	}
-	if (count++ < 20)
+	if (count++ < next)
 		return (true);
 	else
 		count = 0;
+	next = rand() % 50;
 	if (nb_Mobs <= 0)
 		return false;
 	apparition = rand() % 100000 / 100000.0;
 	if (wave > 14 && apparition < - 1.0 * ( 1.0 / (0.001 * wave + 1.0)) + 1.0) {
-		spawnMobs(mobs, map.getStart(), base_life * 5, 0.2, sprites["big_boi"]);
+		spawnMobs(mobs, map.getStart(), base_life * 6, 0.3, sprites["big_boi"]);
 		nb_Mobs--;
 	} else if (wave > 9 && apparition < - 1.0 * ( 1.0 / (0.005 * wave + 1.0)) + 1.0) {
 		speed_boys = 0.6 + wave / 100.0;
@@ -159,6 +164,7 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 		screen.displayElement(sprites["grandma1"]->_sprite, sf::Vector2f(590, 170));
 		screen.displayElement(std::to_string(gtd::CakeGrandMa::cost) + "$", sf::Vector2f(564, 200));
 	}
+	screen.fillColor(sf::Color(0, 0, 0));
 	screen.displayElement("Wave " + std::to_string(game->getWave()), sf::Vector2f(550, 450));
 }
 
@@ -184,7 +190,7 @@ void	game_fct()
 		if (!manageWave(game->getWave(), mobs, _map) && mobs.empty()) {
 			game->nextWave();
 			manageWave(game->getWave(), mobs, _map, true);
-			game->wonMoney(150 + game->getWave() * 20);
+			game->wonMoney(150 + game->getWave() * 10);
 		}
 		screen.clear();
 		_map.display(screen);

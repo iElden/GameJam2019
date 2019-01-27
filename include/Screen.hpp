@@ -24,7 +24,7 @@ namespace gtd {
 		Screen(const Screen &);
 		~Screen();
 
-		void handleEvents(void (*handler)(sf::Event &) = nullptr);
+		void handleEvents(void (*handler)(gtd::Screen &, sf::Event &) = nullptr);
 		const std::string &getTitle() const;
 		void setTitle(const std::string &);
 		void fillColor(const sf::Color &color = sf::Color(255, 255, 255, 255));

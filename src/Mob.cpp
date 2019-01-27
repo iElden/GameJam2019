@@ -31,7 +31,14 @@ void gtd::Mob::display(gtd::Screen &screen)
 						this->_sprite->getSize().y));
 	this->_sprite->display(screen, sf::Vector2f(this->_pos.x * 32 + this->_sprite->_size.x / 2, this->_pos.y * 32 + this->_sprite->_size.y / 2));
 	this->_sprite->_sprite.setOrigin(0, 0);
-	screen.fillColor(sf::Color(0, 255, 0, 255));
+	if (this->getBarPercentage() >= 75)
+		screen.fillColor(sf::Color(0, 255, 0, 255));
+	else if (this->getBarPercentage() >= 50)
+		screen.fillColor(sf::Color(200, 255, 0, 255));
+	else if (this->getBarPercentage() >= 20)
+		screen.fillColor(sf::Color(255, 125, 0, 255));
+	else
+		screen.fillColor(sf::Color(255, 0, 0, 255));
 	screen.displayElement(sf::IntRect(this->_pos.x * 32, this->_pos.y * 32, this->getBarPercentage() * 32 / 100, 5));
 }
 
