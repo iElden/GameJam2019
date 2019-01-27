@@ -21,6 +21,7 @@ namespace gtd {
 		void	display(gtd::Screen &screen);
 		sf::Vector2f getPos();
 		sf::Vector2u getSize();
+		void reduceSpeed(const double &slow);
 
 	protected:
 		gtd::Map::Blocks _dir;
@@ -33,6 +34,7 @@ namespace gtd {
 		double		_movementSpeed;
 		double		_health;
 		double		_maxHealth;
+		bool		_slowDown;
 	};
 }
 

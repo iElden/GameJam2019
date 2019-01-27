@@ -84,7 +84,7 @@ void gtd::ProdTower::update_animation()
 	if (currentTime - _animation1FrameStartTime >= _animation1FrameDuration) {
 		this->_animation += 1;
 		this->_animation %= (this->_sprite->_texture.getSize().x /
-				     this->_sprite->getSize().x);
+				     this->_sprite->getSize().x) ?: 1;
 		_animation1FrameStartTime = currentTime;
 	}
 }

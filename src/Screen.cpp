@@ -35,7 +35,6 @@ const	std::string& gtd::Screen::getTitle() const
 void	gtd::Screen::setTitle(const std::string &title)
 {
 	this->_title = title;
-	this->setTitle(title);
 }
 
 void	gtd::Screen::handleEvents(void (*handler)(gtd::Screen &, sf::Event &))

@@ -16,9 +16,9 @@ gtd::Tower::Tower(const unsigned &cost,
 		  const std::string &name) :
 	_displayedRange(displayedRange),
 	_pos(pos),
+	_sprite(sprite),
 	_sBuff(sBuffer),
 	_type(type),
-	_sprite(sprite),
 	_name(name),
 	_cost(cost)
 {
