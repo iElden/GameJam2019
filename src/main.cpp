@@ -246,7 +246,7 @@ int	main()
 	sprites["blondgirl"]	= new gtd::Sprite("assets/fastblondgirl.png", sf::Vector2u(32, 32));
 	sprites["redboi"]	= new gtd::Sprite("assets/fastredboi.png", sf::Vector2u(32, 32));
 	sprites["redgirl"]	= new gtd::Sprite("assets/fastredgirl.png", sf::Vector2u(32, 32));
-	sprites["big_boi"]	= new gtd::Sprite("assets/BIGboi.png", sf::Vector2u(32, 32));
+	sprites["big_boi"]	= new gtd::Sprite("assets/bigboi.png", sf::Vector2u(32, 32));
 	sprites["life"]		= new gtd::Sprite("assets/life.png", sf::Vector2u(16, 16));
 	sprites["money"]	= new gtd::Sprite("assets/money.png", sf::Vector2u(16, 16));
 	sprites["stock"]	= new gtd::Sprite("assets/stock.png", sf::Vector2u(16, 16));
