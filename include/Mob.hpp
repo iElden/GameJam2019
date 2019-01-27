@@ -22,6 +22,8 @@ namespace gtd {
 		sf::Vector2f getPos();
 		sf::Vector2u getSize();
 		void reduceSpeed(const double &slow);
+		void getBlocked();
+		void getUnblocked();
 
 	protected:
 		gtd::Map::Blocks _dir;
@@ -30,11 +32,13 @@ namespace gtd {
 		int		_animation = 0;
         sf::Time _animation1FrameStartTime{ sf::Time::Zero };
         sf::Time _animation1FrameDuration{ sf::seconds(1.f / 4.f) }; // 12 frames per second
-		double      _animationSpeed = 250;
+		double		_animationSpeed = 250;
 		double		_movementSpeed;
+		double		_saveMovementSpeed;
 		double		_health;
 		double		_maxHealth;
 		bool		_slowDown;
+		bool 		_blocked;
 	};
 }
 

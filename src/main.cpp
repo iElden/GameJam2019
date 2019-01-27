@@ -1,8 +1,9 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "SpeakingGrandMa.hpp"
 #include "CookingGrandMa.hpp"
-#include "CaramelGrandGa.hpp"
-#include "CakeGrandGa.hpp"
+#include "CaramelGrandMa.hpp"
+#include "CakeGrandMa.hpp"
 #include "TvGrandMa.hpp"
 #include "AtkTower.hpp"
 #include "Logger.hpp"
@@ -69,12 +70,15 @@ void	handleClick(gtd::Screen &screen, sf::Event &event)
 					towers->emplace_back(new gtd::TvGrandMa(sBuffer, selectedBox));
 					selected = -1;
 				}
-			} else if (position.y >= 164 && position.y < 214) {
+			} else if (position.y >= 164 && position.y < 304) {
 				if (position.x < 600 && game->pay(gtd::CakeGrandMa::cost)) {
 					towers->emplace_back(new gtd::CakeGrandMa(sBuffer, selectedBox));
 					selected = -1;
-				} else if (position.x >= 600 && game->pay(gtd::CaramelGrandMa::cost)) {
+				} else if (position.x >= 600 && position.x < 650 && game->pay(gtd::CaramelGrandMa::cost)) {
 					towers->emplace_back(new gtd::CaramelGrandMa(sBuffer, selectedBox));
+					selected = -1;
+				} else if (position.x >= 650 && game->pay(gtd::SpeakingGrandMa::cost)) {
+					towers->emplace_back(new gtd::SpeakingGrandMa(sBuffer, selectedBox));
 					selected = -1;
 				}
 			}
@@ -179,7 +183,7 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 		screen.fillColor(sf::Color(0, 255, 0, 120));
 		screen.displayElement(sf::IntRect(selectedBox.x * 32, selectedBox.y * 32, 32, 32));
 		screen.fillColor(sf::Color(120, 120, 120));
-		screen.displayElement(sf::IntRect(546, 115, 800, 125));
+		screen.displayElement(sf::IntRect(546, 115, 800, 160));
 
 		screen.fillColor(gtd::CookingGrandMa::cost <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
 		sprites["cooking"]->_sprite.setRotation(90);
@@ -200,6 +204,11 @@ void	displayHUD(gtd::Screen &screen, gtd::Map &map, std::vector<gtd::Tower *> &t
 		sprites["grandma2"]->_sprite.setRotation(90);
 		screen.displayElement(sprites["grandma2"]->_sprite, sf::Vector2f(630, 170));
 		screen.displayElement(std::to_string(gtd::CaramelGrandMa::cost) + "$", sf::Vector2f(604, 200));
+
+		screen.fillColor(gtd::SpeakingGrandMa::cost <= game->getMoney() ? sf::Color(0, 0, 0) : sf::Color(255, 0, 0));
+		sprites["grandma3"]->_sprite.setRotation(90);
+		screen.displayElement(sprites["grandma3"]->_sprite, sf::Vector2f(590, 220));
+		screen.displayElement(std::to_string(gtd::SpeakingGrandMa::cost) + "$", sf::Vector2f(564, 250));
 	}
 	screen.fillColor(sf::Color(0, 0, 0));
 	screen.displayElement("Wave " + std::to_string(game->getWave()), sf::Vector2f(550, 450));
@@ -279,6 +288,7 @@ int	main()
 	sprites["tv"]		= new gtd::Sprite("assets/tv.png", sf::Vector2u(32, 32));
 	sprites["grandma1"]	= new gtd::Sprite("assets/grandma1.png", sf::Vector2u(32, 32));
 	sprites["grandma2"]	= new gtd::Sprite("assets/grandma2.png", sf::Vector2u(32, 32));
+	sprites["grandma3"]	= new gtd::Sprite("assets/grandma2.png", sf::Vector2u(32, 32));
 	sprites["boi"]		= new gtd::Sprite("assets/boi.png", sf::Vector2u(32, 32));
 	sprites["girl"]		= new gtd::Sprite("assets/girl.png", sf::Vector2u(32, 32));
 	sprites["blondboi"]	= new gtd::Sprite("assets/fastblondboi.png", sf::Vector2u(32, 32));
