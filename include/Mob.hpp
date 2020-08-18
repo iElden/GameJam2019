@@ -16,7 +16,7 @@ namespace gtd {
 		bool	move(gtd::Map &map);
 		void	takeDamage(const double &);
 		bool	isFull();
-        void update_animation();
+		void	update_animation();
 		double	getBarPercentage();
 		void	display(gtd::Screen &screen);
 		sf::Vector2f getPos();
